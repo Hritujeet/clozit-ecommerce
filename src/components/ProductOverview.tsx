@@ -11,7 +11,7 @@ const ProductOverview = () => {
                         width={100}
                         height={100}
                         alt="ecommerce"
-                        className="lg:w-[40%] w-full lg:h-auto h-64 object-cover object-center rounded object-top min-h-[55vh]"
+                        className="lg:w-[40%] w-full lg:h-auto h-64 object-cover rounded object-top min-h-[55vh]"
                         src="https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/superdry/W2011928A02A/0/dkG6fJ7kQc-410409136006_1.jpg"
                     />
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
