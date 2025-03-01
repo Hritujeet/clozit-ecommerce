@@ -27,6 +27,9 @@ const ProductGrid = ({title}: { title: string }) => {
                     <ProductCard name={"Oversized T-Shirt - Custom Design"}
                                  img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
                                  discount={45} price={499}/>
+                    <ProductCard name={"Oversized T-Shirt - Custom Design"}
+                                 img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
+                                 discount={45} price={499}/>
                 </div>
             </div>
         </section>
