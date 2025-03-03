@@ -17,39 +17,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     email: string;
                     password: string;
                 };
-
+            
                 if (!email || !password) {
-                    throw new Error("Missing credentials", {
-                        cause: "Sign In Error",
-                    });
+                    throw new Error("Missing credentials");
                 }
-
+            
                 await connectDb();
                 const user = await User.findOne({ email });
                 if (!user) {
-                    throw new Error("Invalid Credentials", {
-                        cause: "User not found",
-                    });
+                    throw new Error("Invalid Credentials");
                 }
-
+            
                 const passCompare = await compare(password, user.password);
                 if (!passCompare) {
-                    throw new Error("Invalid Credentials", {
-                        cause: "Passwords Don't Match",
-                    });
+                    throw new Error("Invalid Credentials");
                 }
-
-                // Convert Mongoose document to a plain object and remove sensitive fields
+            
                 const userObject = user.toObject();
                 delete userObject.password;
-
-                // Return the user object with the required fields
+            
                 return {
-                    id: userObject._id.toString(), // Convert ObjectId to string
+                    id: userObject._id.toString(),
                     username: userObject.username,
                     email: userObject.email,
                 };
-            },
+            }
         }),
     ],
     callbacks: {

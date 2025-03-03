@@ -7,24 +7,18 @@ export async function credentialSignInHandler(data: Credentials) {
         const credentials = { email: data.email, password: data.password };
         const result = await signIn("credentials", {
             ...credentials,
-            redirect: false, // Prevent automatic redirects
+            redirect: false
         });
 
-        console.log("SignIn result:", result); // Log the result for debugging
-
-        if (!result?.ok) {
-            throw new Error(result?.error || "Invalid Credentials");
-        }
-
-        return null; // No error, return null
+        return null; 
     } catch (error: any) {
-        console.log(error); // Log the error for debugging
+        console.log(error); 
         if (error.cause && error.cause.err) {
             return error.cause.err.message;
         } else if (error.message) {
-            return error.message; // Fallback to the error message
+            return error.message; 
         } else {
-            return "An unknown error occurred."; // Default error message
+            return "An unknown error occurred."; 
         }
     }
 }
