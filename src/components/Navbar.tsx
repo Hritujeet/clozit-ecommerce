@@ -122,7 +122,7 @@ const Navbar = () => {
                     </NavigationMenuList>
                 </NavigationMenu>
             </div>
-            <div className="auth-buttons flex justify-center items-center gap-2 hidden md:block">
+            <div className="auth-buttons flex justify-center items-center gap-2 md:block">
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <span className={buttonVariants({variant: "outline", size: "icon"})}><User></User></span>
