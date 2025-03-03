@@ -1,6 +1,6 @@
 import { User } from "@/models/User";
 import { connectDb } from "@/utils/db";
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -33,5 +33,9 @@ export async function POST(request: NextRequest) {
         password: hashedPass,
     });
 
-    return NextResponse.json({ message: "Account created successfully", error: false, username: newUser.username });
+    return NextResponse.json({
+        message: "Account created successfully",
+        error: false,
+        username: newUser.username,
+    });
 }
