@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     fName: { type: String },
     lName: { type: String },
-    username: { type: String, required: true},
+    username: { type: String, required: true, unique: true},
     email: { type: String, required: true, unique: true }, // Ensure uniqueness
     password: { type: String },
     cart: { type: mongoose.Schema.ObjectId, ref: "Cart" },

@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import {Credentials} from "@/utils/types";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import toast from "react-hot-toast";
 
 const SignUpComponent = () => {
     const {
@@ -25,7 +26,13 @@ const SignUpComponent = () => {
                 body: JSON.stringify(data)
             })
             const response = await a.json();
-            console.log(response)
+            
+            if (response.error) {
+                toast.error(response.message)
+            }
+            else {
+                toast.success(response.message)
+            }
         },
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ["account"]});
