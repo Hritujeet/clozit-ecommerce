@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "./LoadingSpinner";
 import { credentialSignInHandler } from "@/actions/user.actions";
+import { useRouter } from "next/navigation";
 
 const SignInComponent = () => {
     const {
@@ -16,26 +17,29 @@ const SignInComponent = () => {
         reset,
     } = useForm<Credentials>();
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const mutation = useMutation({
         mutationFn: async (data: Credentials) => {
             const error = await credentialSignInHandler(data);
-            if (error) {                
+            if (error) {
                 toast.error(error); // Display the specific error message
             } else {
+                console.log("Sign-in successful, redirecting...");
                 toast.success("Signed In Successfully");
+                router.replace("/"); // Redirect to the home page
             }
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["account"] });
         },
     });
-    
 
     const myHandler = async (data: Credentials) => {
         mutation.mutate(data);
         reset();
     };
+
     return (
         <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
             <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -82,32 +86,63 @@ const SignInComponent = () => {
                                 </div>
                             </div>
 
-                            <form onSubmit={handleSubmit(myHandler)} className="mx-auto max-w-xs space-y-2">
+                            <form
+                                onSubmit={handleSubmit(myHandler)}
+                                className="mx-auto max-w-xs space-y-2"
+                            >
                                 <div>
                                     <input
-                                        {...register("email", { required: true })}
+                                        {...register("email", {
+                                            required: true,
+                                        })}
                                         className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2"
-                                        type="email ${errors.email ? "border-red-500" : ""}`}
+                                        type="email ${
+                                            errors.email ? "border-red-500" : ""
+                                        }`}
                                         placeholder="Email"
                                         type={"email"}
                                         name={"email"}
                                     />
                                 </div>
                                 <span
-                                    className={`${errors.email ? "block" : "hidden"} text-red-500 my-2 text-xs`}>Email is required</span>
+                                    className={`${
+                                        errors.email ? "block" : "hidden"
+                                    } text-red-500 my-2 text-xs`}
+                                >
+                                    Email is required
+                                </span>
                                 <div>
                                     <input
-                                        {...register("password", { required: true })}
+                                        {...register("password", {
+                                            required: true,
+                                        })}
                                         className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2"
-                                        type="password ${errors.password ? "border-red-500" : ""}`}
+                                        type="password ${
+                                            errors.password
+                                                ? "border-red-500"
+                                                : ""
+                                        }`}
                                         placeholder="Password"
                                         type={"password"}
                                         name={"password"}
                                     />
                                 </div>
-                                <span className={`${errors.password ? "block" : "hidden"} text-red-500 my-2 text-xs`}>Password is required</span>
-                                <Button disabled={mutation.isPending} className={"my-5 font-semibold w-full"}>
-                                    {mutation.isPending ? <LoadingSpinner /> : "Sign up"}
+                                <span
+                                    className={`${
+                                        errors.password ? "block" : "hidden"
+                                    } text-red-500 my-2 text-xs`}
+                                >
+                                    Password is required
+                                </span>
+                                <Button
+                                    disabled={mutation.isPending}
+                                    className={"my-5 font-semibold w-full"}
+                                >
+                                    {mutation.isPending ? (
+                                        <LoadingSpinner />
+                                    ) : (
+                                        "Sign up"
+                                    )}
                                 </Button>
                             </form>
                         </div>

@@ -1,9 +1,14 @@
+import { auth } from '@/auth';
 import React from 'react';
 
-const Page = () => {
+const Page = async () => {
+    const authData = await auth()
+    console.log(authData);
+    
+
     return (
         <div>
-            Profile
+            {authData?.user?.email}
         </div>
     );
 };

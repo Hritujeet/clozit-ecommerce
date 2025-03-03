@@ -7,10 +7,10 @@ export async function credentialSignInHandler(data: Credentials) {
         const credentials = { email: data.email, password: data.password };
         const result = await signIn("credentials", {
             ...credentials,
-            redirect: false,
+            redirect: false, // Prevent automatic redirects
         });
 
-        console.log("SignIn result:", result); // Log the result
+        console.log("SignIn result:", result); // Log the result for debugging
 
         if (!result?.ok) {
             throw new Error(result?.error || "Invalid Credentials");
