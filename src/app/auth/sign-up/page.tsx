@@ -1,5 +1,6 @@
 import React from 'react';
 import SignUpComponent from "@/components/SignUpComponent";
+import { Metadata } from 'next';
 
 const Page = () => {
     return (
@@ -10,3 +11,9 @@ const Page = () => {
 };
 
 export default Page;
+
+export const metadata: Metadata = {
+    title: "Sign Up | Clozit",
+    description: "",
+  };
+  
