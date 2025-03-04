@@ -1,5 +1,5 @@
 "use server";
-import { signIn } from "@/auth";
+import {signIn, signOut} from "@/auth";
 import { Credentials } from "@/utils/types";
 
 export async function credentialSignInHandler(data: Credentials) {
@@ -21,4 +21,8 @@ export async function credentialSignInHandler(data: Credentials) {
             return "An unknown error occurred."; 
         }
     }
+}
+
+export async function handleSignOut() {
+    await signOut();
 }

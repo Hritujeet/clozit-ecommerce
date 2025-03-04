@@ -27,7 +27,9 @@ const SignInComponent = () => {
             } else {
                 console.log("Sign-in successful, redirecting...");
                 toast.success("Signed In Successfully");
-                router.replace("/"); // Redirect to the home page
+                setTimeout(()=>{
+                    window.location.replace("/"); // Redirect to the home page
+                }, 1000)
             }
         },
         onSuccess: () => {
@@ -50,7 +52,7 @@ const SignInComponent = () => {
                         </h1>
                         <div className="w-full flex-1 mt-8">
                             <div className="flex flex-col items-center">
-                                <Button variant={"outline"}>
+                                <Button variant="outline">
                                     <div className="bg-white p-2 rounded-full">
                                         <svg
                                             className="w-4"
@@ -95,53 +97,45 @@ const SignInComponent = () => {
                                         {...register("email", {
                                             required: true,
                                         })}
-                                        className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2"
-                                        type="email ${
+                                        className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2 ${
                                             errors.email ? "border-red-500" : ""
                                         }`}
                                         placeholder="Email"
-                                        type={"email"}
-                                        name={"email"}
+                                        type="email"
+                                        name="email"
                                     />
+                                    {errors.email && (
+                                        <span className="text-red-500 text-xs">
+                                            Email is required
+                                        </span>
+                                    )}
                                 </div>
-                                <span
-                                    className={`${
-                                        errors.email ? "block" : "hidden"
-                                    } text-red-500 my-2 text-xs`}
-                                >
-                                    Email is required
-                                </span>
                                 <div>
                                     <input
                                         {...register("password", {
                                             required: true,
                                         })}
-                                        className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2"
-                                        type="password ${
-                                            errors.password
-                                                ? "border-red-500"
-                                                : ""
+                                        className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2 ${
+                                            errors.password ? "border-red-500" : ""
                                         }`}
                                         placeholder="Password"
-                                        type={"password"}
-                                        name={"password"}
+                                        type="password"
+                                        name="password"
                                     />
+                                    {errors.password && (
+                                        <span className="text-red-500 text-xs">
+                                            Password is required
+                                        </span>
+                                    )}
                                 </div>
-                                <span
-                                    className={`${
-                                        errors.password ? "block" : "hidden"
-                                    } text-red-500 my-2 text-xs`}
-                                >
-                                    Password is required
-                                </span>
                                 <Button
                                     disabled={mutation.isPending}
-                                    className={"my-5 font-semibold w-full"}
+                                    className="my-5 font-semibold w-full"
                                 >
                                     {mutation.isPending ? (
                                         <LoadingSpinner />
                                     ) : (
-                                        "Sign up"
+                                        "Sign In"
                                     )}
                                 </Button>
                             </form>
