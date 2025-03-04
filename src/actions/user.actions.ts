@@ -5,7 +5,7 @@ import { Credentials } from "@/utils/types";
 export async function credentialSignInHandler(data: Credentials) {
     try {
         const credentials = { email: data.email, password: data.password };
-        const result = await signIn("credentials", {
+        await signIn("credentials", {
             ...credentials,
             redirect: false
         });

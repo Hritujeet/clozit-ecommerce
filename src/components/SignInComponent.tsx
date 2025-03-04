@@ -1,23 +1,21 @@
 "use client";
 import React from "react";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { Credentials } from "@/utils/types";
-import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {Credentials} from "@/utils/types";
+import {useForm} from "react-hook-form";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import LoadingSpinner from "./LoadingSpinner";
-import { credentialSignInHandler } from "@/actions/user.actions";
-import { useRouter } from "next/navigation";
+import {credentialSignInHandler} from "@/actions/user.actions";
 
 const SignInComponent = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
         reset,
     } = useForm<Credentials>();
     const queryClient = useQueryClient();
-    const router = useRouter();
 
     const mutation = useMutation({
         mutationFn: async (data: Credentials) => {
@@ -27,13 +25,13 @@ const SignInComponent = () => {
             } else {
                 console.log("Sign-in successful, redirecting...");
                 toast.success("Signed In Successfully");
-                setTimeout(()=>{
+                setTimeout(() => {
                     window.location.replace("/"); // Redirect to the home page
                 }, 1000)
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["account"] });
+            queryClient.invalidateQueries({queryKey: ["account"]});
         },
     });
 
@@ -83,7 +81,8 @@ const SignInComponent = () => {
                             </div>
 
                             <div className="my-12 border-b text-center">
-                                <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                                <div
+                                    className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                                     Or sign in with e-mail
                                 </div>
                             </div>
@@ -133,7 +132,7 @@ const SignInComponent = () => {
                                     className="my-5 font-semibold w-full"
                                 >
                                     {mutation.isPending ? (
-                                        <LoadingSpinner />
+                                        <LoadingSpinner/>
                                     ) : (
                                         "Sign In"
                                     )}
