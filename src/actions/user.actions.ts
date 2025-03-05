@@ -1,18 +1,17 @@
 "use server";
-import {signIn, signOut} from "@/auth";
-import {Credentials} from "@/utils/types";
+import { signIn, signOut } from "@/auth";
+import { Credentials } from "@/utils/types";
 
 export async function credentialSignInHandler(data: Credentials) {
     try {
-        const credentials = {email: data.email, password: data.password};
+        const credentials = { email: data.email, password: data.password };
         await signIn("credentials", {
             ...credentials,
-            redirect: false
+            redirect: false,
         });
 
         return null;
-    }
-    catch (error: any) {
+    } catch (error: any) {
         console.log(error);
         if (error.cause && error.cause.err) {
             return error.cause.err.message;
@@ -26,14 +25,8 @@ export async function credentialSignInHandler(data: Credentials) {
 
 export async function handleGoogleSignIn() {
     try {
-        await signIn("google", {
-            redirect: false
-        });
+        await signIn("google", { redirect: false });
     } catch (error: any) {
         return error;
     }
-}
-
-export async function handleSignOut() {
-    await signOut();
 }

@@ -1,18 +1,18 @@
-"use client"
+"use client";
 import React from "react";
-import {Button} from "@/components/ui/button";
-import {useForm} from "react-hook-form";
-import {Credentials} from "@/utils/types";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { Credentials } from "@/utils/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import toast from "react-hot-toast";
-import { handleGoogleSignIn } from "@/actions/user.actions";
+import { signIn } from "next-auth/react";
 
 const SignUpComponent = () => {
     const {
         register,
         handleSubmit,
-        formState: {errors},
+        formState: { errors },
         reset,
     } = useForm<Credentials>();
     const queryClient = useQueryClient();
@@ -22,41 +22,53 @@ const SignUpComponent = () => {
             const a = await fetch("/api/sign-up", {
                 method: "POST",
                 headers: {
-                    "Content-type": "application/json"
+                    "Content-type": "application/json",
                 },
-                body: JSON.stringify(data)
-            })
+                body: JSON.stringify(data),
+            });
             const response = await a.json();
-            
+
             if (response.error) {
-                toast.error(response.message)
-            }
-            else {
-                toast.success(response.message)
+                toast.error(response.message);
+            } else {
+                toast.success(response.message);
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ["account"]});
-        }
+            queryClient.invalidateQueries({ queryKey: ["account"] });
+        },
     });
 
     const myHandler = async (data: Credentials) => {
-        mutation.mutate(data)
+        mutation.mutate(data);
         reset();
     };
 
     return (
         <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-            <div
-                className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 flex-row-reverse">
+            <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 flex-row-reverse">
                 <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                     <div className="mt-12 flex flex-col items-center">
-                        <h1 className="text-2xl xl:text-3xl font-extrabold">Sign Up</h1>
+                        <h1 className="text-2xl xl:text-3xl font-extrabold">
+                            Sign Up
+                        </h1>
                         <div className="w-full flex-1 mt-8">
-                            <form action={handleGoogleSignIn} className="flex flex-col items-center">
-                                <Button variant={"outline"}>
+                            <div className="flex flex-col items-center">
+                                <Button
+                                    onClick={() => {
+                                        signIn("google", {
+                                            redirect: true,
+                                            redirectTo: "/",
+                                        });
+                                        toast.success("Signed in Successfully");
+                                    }}
+                                    variant="outline"
+                                >
                                     <div className="bg-white p-2 rounded-full">
-                                        <svg className="w-4" viewBox="0 0 533.5 544.3">
+                                        <svg
+                                            className="w-4"
+                                            viewBox="0 0 533.5 544.3"
+                                        >
                                             <path
                                                 d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
                                                 fill="#4285f4"
@@ -75,13 +87,14 @@ const SignUpComponent = () => {
                                             />
                                         </svg>
                                     </div>
-                                    <span className="ml-4">Continue with Google</span>
+                                    <span className="ml-4">
+                                        Continue with Google
+                                    </span>
                                 </Button>
-                            </form>
+                            </div>
 
                             <div className="my-12 border-b text-center">
-                                <div
-                                    className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                                <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                                     Or Sign Up with e-mail
                                 </div>
                             </div>
@@ -92,40 +105,82 @@ const SignUpComponent = () => {
                             >
                                 <div>
                                     <input
-                                        {...register("username", {required: true, minLength: 4})}
+                                        {...register("username", {
+                                            required: true,
+                                            minLength: 4,
+                                        })}
                                         className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2"
-                                        type="text ${errors.username ? "border-red-500" : ""}`}
+                                        type="text ${
+                                            errors.username
+                                                ? "border-red-500"
+                                                : ""
+                                        }`}
                                         placeholder="Username"
                                         type={"text"}
                                         name={"username"}
                                     />
                                 </div>
-                                <span className={`${errors.username ? "block" : "hidden"} text-red-500 my-2 text-xs`}>Username should be at least of length 4</span>
+                                <span
+                                    className={`${
+                                        errors.username ? "block" : "hidden"
+                                    } text-red-500 my-2 text-xs`}
+                                >
+                                    Username should be at least of length 4
+                                </span>
                                 <div>
                                     <input
-                                        {...register("email", {required: true})}
+                                        {...register("email", {
+                                            required: true,
+                                        })}
                                         className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2"
-                                        type="email ${errors.email ? "border-red-500" : ""}`}
+                                        type="email ${
+                                            errors.email ? "border-red-500" : ""
+                                        }`}
                                         placeholder="Email"
                                         type={"email"}
                                         name={"email"}
                                     />
                                 </div>
                                 <span
-                                    className={`${errors.email ? "block" : "hidden"} text-red-500 my-2 text-xs`}>Email is required</span>
+                                    className={`${
+                                        errors.email ? "block" : "hidden"
+                                    } text-red-500 my-2 text-xs`}
+                                >
+                                    Email is required
+                                </span>
                                 <div>
                                     <input
-                                        {...register("password", {required: true, minLength: 6})}
+                                        {...register("password", {
+                                            required: true,
+                                            minLength: 6,
+                                        })}
                                         className={`w-full px-6 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white my-2"
-                                        type="password ${errors.password ? "border-red-500" : ""}`}
+                                        type="password ${
+                                            errors.password
+                                                ? "border-red-500"
+                                                : ""
+                                        }`}
                                         placeholder="Password"
                                         type={"password"}
                                         name={"password"}
                                     />
                                 </div>
-                                <span className={`${errors.password ? "block" : "hidden"} text-red-500 my-2 text-xs`}>Password should be at least of length 6</span>
-                                <Button disabled={mutation.isPending} className={"my-5 font-semibold w-full"}>
-                                    {mutation.isPending ? <LoadingSpinner/> : "Sign up"}
+                                <span
+                                    className={`${
+                                        errors.password ? "block" : "hidden"
+                                    } text-red-500 my-2 text-xs`}
+                                >
+                                    Password should be at least of length 6
+                                </span>
+                                <Button
+                                    disabled={mutation.isPending}
+                                    className={"my-5 font-semibold w-full"}
+                                >
+                                    {mutation.isPending ? (
+                                        <LoadingSpinner />
+                                    ) : (
+                                        "Sign up"
+                                    )}
                                 </Button>
                             </form>
                         </div>

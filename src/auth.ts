@@ -61,10 +61,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             }
             return token;
         },
-        async signIn({ account }: { account: any }) {
-            if (account?.type === "credentials") {
+        async signIn({ account, user }: { account: any; user: any }) {
+            if (account?.provider === "credentials") {
                 return true;
-            } else if (account?.type === "google") {
+            } else if (account?.provider === "google") {
+                await connectDb();
+                const alreadyUser = await User.findOne({
+                    $or: [{ username: user.name }, { email: user.email }],
+                });
+
+                if (!alreadyUser) {
+                    await User.create({
+                        username: user.name,
+                        email: user.email,
+                    });
+                }
                 return true;
             } else {
                 return false;
