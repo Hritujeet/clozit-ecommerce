@@ -6,7 +6,7 @@ import {Credentials} from "@/utils/types";
 import {useForm} from "react-hook-form";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import LoadingSpinner from "./LoadingSpinner";
-import {credentialSignInHandler} from "@/actions/user.actions";
+import {credentialSignInHandler, handleGoogleSignIn} from "@/actions/user.actions";
 
 const SignInComponent = () => {
     const {
@@ -49,7 +49,7 @@ const SignInComponent = () => {
                             Sign In
                         </h1>
                         <div className="w-full flex-1 mt-8">
-                            <div className="flex flex-col items-center">
+                            <form action={handleGoogleSignIn} className="flex flex-col items-center">
                                 <Button variant="outline">
                                     <div className="bg-white p-2 rounded-full">
                                         <svg
@@ -78,7 +78,7 @@ const SignInComponent = () => {
                                         Continue with Google
                                     </span>
                                 </Button>
-                            </div>
+                            </form>
 
                             <div className="my-12 border-b text-center">
                                 <div

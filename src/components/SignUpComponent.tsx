@@ -6,6 +6,7 @@ import {Credentials} from "@/utils/types";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import toast from "react-hot-toast";
+import { handleGoogleSignIn } from "@/actions/user.actions";
 
 const SignUpComponent = () => {
     const {
@@ -52,7 +53,7 @@ const SignUpComponent = () => {
                     <div className="mt-12 flex flex-col items-center">
                         <h1 className="text-2xl xl:text-3xl font-extrabold">Sign Up</h1>
                         <div className="w-full flex-1 mt-8">
-                            <div className="flex flex-col items-center">
+                            <form action={handleGoogleSignIn} className="flex flex-col items-center">
                                 <Button variant={"outline"}>
                                     <div className="bg-white p-2 rounded-full">
                                         <svg className="w-4" viewBox="0 0 533.5 544.3">
@@ -76,7 +77,7 @@ const SignUpComponent = () => {
                                     </div>
                                     <span className="ml-4">Continue with Google</span>
                                 </Button>
-                            </div>
+                            </form>
 
                             <div className="my-12 border-b text-center">
                                 <div

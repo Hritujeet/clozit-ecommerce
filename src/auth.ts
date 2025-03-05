@@ -1,19 +1,21 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import {connectDb} from "./utils/db";
-import {User} from "./models/User";
-import {compare} from "bcryptjs";
+import { connectDb } from "./utils/db";
+import { User } from "./models/User";
+import { compare } from "bcryptjs";
+import Google from "next-auth/providers/google";
 
-export const {handlers, signIn, signOut, auth} = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
+        Google,
         Credentials({
             name: "credentials",
             credentials: {
-                email: {type: "email", label: "email"},
-                password: {type: "password", label: "password"},
+                email: { type: "email", label: "email" },
+                password: { type: "password", label: "password" },
             },
             authorize: async (credentials) => {
-                const {email, password} = credentials as {
+                const { email, password } = credentials as {
                     email: string;
                     password: string;
                 };
@@ -23,7 +25,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 }
 
                 await connectDb();
-                const user = await User.findOne({email});
+                const user = await User.findOne({ email });
                 if (!user) {
                     throw new Error("Invalid Credentials");
                 }
@@ -41,11 +43,11 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                     username: userObject.username,
                     email: userObject.email,
                 };
-            }
+            },
         }),
     ],
     callbacks: {
-        async session({session, token}) {
+        async session({ session, token }) {
             if (token.user) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -53,17 +55,23 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             }
             return session;
         },
-        async jwt({token, user}) {
+        async jwt({ token, user }) {
             if (user) {
                 token.user = user; // Attach the user object to the token
             }
             return token;
         },
-        async signIn({account}) {
-            return account?.provider == "credentials";
-        }
+        async signIn({ account }: { account: any }) {
+            if (account?.type === "credentials") {
+                return true;
+            } else if (account?.type === "google") {
+                return true;
+            } else {
+                return false;
+            }
+        },
     },
     pages: {
-        signIn: "/auth/sign-in"
+        signIn: "/auth/sign-in",
     },
 });

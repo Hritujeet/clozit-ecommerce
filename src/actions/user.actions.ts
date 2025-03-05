@@ -24,6 +24,16 @@ export async function credentialSignInHandler(data: Credentials) {
     }
 }
 
+export async function handleGoogleSignIn() {
+    try {
+        await signIn("google", {
+            redirect: false
+        });
+    } catch (error: any) {
+        return error;
+    }
+}
+
 export async function handleSignOut() {
     await signOut();
 }
