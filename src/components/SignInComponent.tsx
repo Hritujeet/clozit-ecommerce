@@ -53,11 +53,15 @@ const SignInComponent = () => {
                             <div className="flex flex-col items-center">
                                 <Button
                                     onClick={() => {
-                                        signIn("google", {
-                                            redirect: true,
-                                            redirectTo: "/"
-                                        });
-                                        toast.success("Signed in Successfully");
+                                        try {
+                                            signIn("google", {
+                                                redirect: true,
+                                                redirectTo: "/"
+                                            });
+                                            toast.success("Signed in Successfully");
+                                        } catch (error) {
+                                            toast.error("An Unexpected Error Occurred")
+                                        }
                                     }}
                                     variant="outline"
                                 >
