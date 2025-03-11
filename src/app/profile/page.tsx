@@ -7,8 +7,9 @@ const Page = async () => {
     
 
     return (
-        <div>
-            {authData?.user?.email}
+        <div className='flex flex-col gap-1'>
+            <p>{authData?.user?.id}</p>
+            <p>{authData?.user?.email}</p>
         </div>
     );
 };
