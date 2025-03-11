@@ -4,7 +4,7 @@ import ProductGrid from "@/components/ProductGrid";
 const Page = () => {
     return (
         <div>
-            <ProductGrid title={"Stunning T-Shirts | Clozit"} />
+            <ProductGrid fetchURL={"/api/products/category/T-Shirts"}  title={"Stunning T-Shirts | Clozit"} />
         </div>
     );
 };

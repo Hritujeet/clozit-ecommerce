@@ -5,3 +5,21 @@ export type Credentials = {
     email: string,
     password: string
 }
+
+export type Product = {
+    productName: string;
+    slug: string;
+    description: string;
+    price: number;
+    category: "T-Shirts" | "Hoodies" | "Bottoms" | "Winter Wear";
+    subCategory: string;
+    stock: number;
+    rating?: number;
+    image: string;
+    sizes: ("SM" | "M" | "L" | "XL" | "XXL")[];
+    colors: string[];
+    reviews?: string[]; // Assuming reviews contain ObjectId strings
+    createdAt: string; // Using string since JSON responses return ISO date strings
+    updatedAt: string;
+};
+

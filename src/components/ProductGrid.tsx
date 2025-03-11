@@ -1,6 +1,19 @@
-import ProductCard from "./ProductCard";
+"use client"
+import {useQuery} from "@tanstack/react-query";
+import ProductCard from "@/components/ProductCard";
+import ProductSkeleton from "@/components/ProductSkeleton";
+import {Product} from "@/utils/types";
 
-const ProductGrid = ({title}: { title: string }) => {
+const ProductGrid = ({title, fetchURL}: { title: string, fetchURL: string }) => {
+    const {data, isPending, error} = useQuery({
+        queryFn: async () => {
+            const response = await fetch(fetchURL);
+            if (!response.ok) throw new Error("Failed to fetch products");
+            return response.json();
+        },
+        queryKey: ["all-products"],
+    });
+
     return (
         <section className="bg-white py-8">
             <div className="container mx-auto px-4">
@@ -8,28 +21,20 @@ const ProductGrid = ({title}: { title: string }) => {
                     <h2 className="text-2xl font-bold">{title}</h2>
                 </div>
 
+                {error && <p className="text-red-500">Error loading products.</p>}
+
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    <ProductCard name={"Oversized T-Shirt - Custom Design"}
-                                 img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
-                                 discount={45} price={499}/>
-
-                    <ProductCard name={"Oversized T-Shirt - Custom Design"}
-                                 img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
-                                 discount={45} price={499}/>
-
-                    <ProductCard name={"Oversized T-Shirt - Custom Design"}
-                                 img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
-                                 discount={45} price={499}/>
-
-                    <ProductCard name={"Oversized T-Shirt - Custom Design"}
-                                 img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
-                                 discount={45} price={499}/>
-                    <ProductCard name={"Oversized T-Shirt - Custom Design"}
-                                 img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
-                                 discount={45} price={499}/>
-                    <ProductCard name={"Oversized T-Shirt - Custom Design"}
-                                 img={"https://www.yourprint.in/wp-content/uploads/2022/02/oversized_top.jpg"}
-                                 discount={45} price={499}/>
+                    {isPending
+                        ? Array.from({length: 5}).map((_, index) => <ProductSkeleton key={index}/>)
+                        : data.products.map((item: Product, index: number) => (
+                            <ProductCard
+                                key={index}
+                                name={item.productName}
+                                img={item.image}
+                                discount={45}
+                                price={499}
+                            />
+                        ))}
                 </div>
             </div>
         </section>
