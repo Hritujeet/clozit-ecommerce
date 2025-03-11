@@ -113,22 +113,6 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-
-                        <div>
-                            <p className="font-semibold text-gray-900">Auth</p>
-
-                            <ul className="mt-6 space-y-4 text-sm">
-                                <li>
-                                    <Link href="/auth/sign-in"
-                                          className="text-gray-700 transition hover:opacity-75">Sign In</Link>
-                                </li>
-
-                                <li>
-                                    <Link href="/auth/sign-up" className="text-gray-700 transition hover:opacity-75">Sign
-                                        Up</Link>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
 
