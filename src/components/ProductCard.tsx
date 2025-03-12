@@ -3,19 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ShoppingCartIcon } from "lucide-react";
+import { ProductCardType } from "@/utils/types";
 
-type Product = {
-    name: string;
-    price: number;
-    discount: number;
-    img: string;
-    slug: string;
-    avlSizes: string[];
-    colors: string[];
-};
-
-const ProductCard = (props: Product) => {
-    const { name, price, discount, img, slug, avlSizes, colors } = props;
+const ProductCard = (props: ProductCardType) => {
+    const { name, price, img, slug, avlSizes, colors } = props;
 
     return (
         <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">

@@ -23,3 +23,14 @@ export type Product = {
     updatedAt: string;
 };
 
+export type ProductCardType = {
+    name: string;
+    price: number;
+    discount: number;
+    img: string;
+    slug: string;
+    avlSizes: string[];
+    colors: string[];
+};
+
+

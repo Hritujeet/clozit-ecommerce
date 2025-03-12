@@ -1,28 +1,41 @@
-import React from 'react';
+import React from "react";
 import Link from "next/link";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { ProductCardType } from "@/utils/types";
+import Image from "next/image";
 
-const FeaturedProductCard = () => {
+const FeaturedProductCard = (props: ProductCardType) => {
+    const { name, price, img, slug, avlSizes, colors } = props;
     return (
         <div>
             <div className="relative group">
                 <div className="overflow-hidden aspect-w-1 aspect-h-1">
-                    <img className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
-                         src="https://cdn.rareblocks.xyz/collection/clarity-ecommerce/images/item-cards/4/product-1.png"
-                         alt=""/>
+                    <Image
+                        className="mx-auto aspect-auto w-auto h-72 dark:hidden transition-all duration-300 group-hover:scale-125"
+                        src={img}
+                        alt="product-image"
+                        width={200}
+                        height={200}
+                        objectFit="contain"
+                    />
                 </div>
-                <div className="flex items-start justify-between mt-4 space-x-4">
+                <div className="flex flex-col items-start justify-between mt-4 space-x-4">
                     <div>
-                        <h3 className="text-xs font-bold text-gray-900 sm:text-sm md:text-base">
-                            <Link href="/products/products/clozit" title="">
-                                Beoplay M5 Bluetooth Speaker
-                                <span className="absolute inset-0" aria-hidden="true"></span>
+                        <h3 className="text-lg font-bold text-gray-900">
+                            <Link href={`/products/products/${slug}`} title="">
+                                {name}
+                                <span
+                                    className="absolute inset-0"
+                                    aria-hidden="true"
+                                ></span>
                             </Link>
                         </h3>
                     </div>
 
                     <div className="text-right">
-                        <p className="text-xs font-bold text-gray-900 sm:text-sm md:text-base">$99.00</p>
+                        <p className="text-lg font-bold text-gray-900">
+                            ${price}
+                        </p>
                     </div>
                 </div>
             </div>
