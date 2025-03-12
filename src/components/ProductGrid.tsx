@@ -5,7 +5,7 @@ import ProductSkeleton from "@/components/ProductSkeleton";
 import {Product} from "@/utils/types";
 
 const ProductGrid = ({title, fetchURL}: { title: string, fetchURL: string }) => {
-    const {data, isPending, error} = useQuery({
+    const {data, error, isFetching} = useQuery({
         queryFn: async () => {
             const response = await fetch(fetchURL);
             if (!response.ok) throw new Error("Failed to fetch products");
@@ -24,7 +24,7 @@ const ProductGrid = ({title, fetchURL}: { title: string, fetchURL: string }) => 
                 {error && <p className="text-red-500">Error loading products.</p>}
 
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {isPending
+                    {isFetching
                         ? Array.from({length: 5}).map((_, index) => <ProductSkeleton key={index}/>)
                         : data.products.map((item: Product, index: number) => (
                             <ProductCard
@@ -33,6 +33,9 @@ const ProductGrid = ({title, fetchURL}: { title: string, fetchURL: string }) => 
                                 img={item.image}
                                 discount={45}
                                 price={499}
+                                slug={item.slug}
+                                avlSizes={item.sizes}
+                                colors={item.colors}
                             />
                         ))}
                 </div>
