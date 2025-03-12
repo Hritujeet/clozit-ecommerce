@@ -6,7 +6,7 @@ export async function GET(request: NextRequest, { params }: { params: { category
     const { category } = await (params);
     await connectDb();
     try {
-        const products = await Product.find({ category }).sort({ createdAt: "desc" });
+        const products = await Product.find({ category }).sort({ createdAt: -1 });
         return NextResponse.json({ products, category });
     } catch (e) {
         return NextResponse.json({ error: "Error fetching" }, { status: 500 });

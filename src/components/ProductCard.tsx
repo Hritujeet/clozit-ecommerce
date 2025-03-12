@@ -35,7 +35,7 @@ const ProductCard = (props: ProductCardType) => {
                         return (
                             <div
                                 key={size}
-                                className="cursor-default p-1 border rounded aspect-square flex justify-center items-center"
+                                className="cursor-default p-1 border rounded"
                             >
                                 {size}
                             </div>

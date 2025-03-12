@@ -24,7 +24,7 @@ const FeaturedProducts = () => {
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4 aspect-auto">
                 {isFetching
                         ? Array.from({length: 4}).map((_, index) => <ProductSkeleton key={index}/>)
                         : data.products.map((item: Product, index: number) => (

@@ -11,7 +11,7 @@ const FeaturedProductCard = (props: ProductCardType) => {
             <div className="relative group">
                 <div className="overflow-hidden aspect-w-1 aspect-h-1">
                     <Image
-                        className="mx-auto aspect-auto w-auto h-72 dark:hidden transition-all duration-300 group-hover:scale-125"
+                        className="mx-auto aspect-auto w-auto h-60 md:h-72 dark:hidden transition-all duration-300 group-hover:scale-125"
                         src={img}
                         alt="product-image"
                         width={200}
@@ -36,6 +36,36 @@ const FeaturedProductCard = (props: ProductCardType) => {
                         <p className="text-lg font-bold text-gray-900">
                             ${price}
                         </p>
+                    </div>
+
+                    <div className="font-semibold text-sm text-neutral-600 flex gap-5 my-2">
+                        {avlSizes.map((size) => {
+                            return (
+                                <div
+                                    key={size}
+                                    className="cursor-default p-1 border rounded"
+                                >
+                                    {size}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="flex gap-2 my-2">
+                        {colors.map((color) => {
+                            return (
+                                <div
+                                    key={color}
+                                    className={`w-6 h-6 rounded-full cursor-default ${
+                                        color.toLowerCase() == "white"
+                                            ? "border border-neutral-400"
+                                            : ""
+                                    }`}
+                                    style={{ backgroundColor: color }}
+                                    title={color} // Optional: shows color name on hover
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
