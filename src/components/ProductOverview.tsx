@@ -1,94 +1,195 @@
-"use client"
-import React, {useState} from 'react';
-import {FaExchangeAlt, FaHeart, FaLock, FaShippingFast, FaShoppingCart, FaStar} from 'react-icons/fa';
+"use client";
+import React, { useState } from "react";
+import {
+    FaExchangeAlt,
+    FaLock,
+    FaShippingFast,
+    FaShoppingCart,
+} from "react-icons/fa";
 import Image from "next/image";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "./ui/skeleton";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import toast from "react-hot-toast";
 
-const ProductOverview = () => {
-    const [selectedSize, setSelectedSize] = useState<number | null>(null);
-    const [selectedColor, setSelectedColor] = useState<string | null>(null)
+const ProductOverview = ({ slug }: { slug: string }) => {
+    const [selectedSize, setSelectedSize] = useState<string | null>(null);
+    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+    const router = useRouter();
+
+    const query = useQuery({
+        queryFn: async () => {
+            const response = await fetch(`/api/products/product/${slug}`);
+            const data = await response.json();
+            return data;
+        },
+        queryKey: ["product"],
+    });
+
+    if (query.isFetching) {
+        return (
+            <div className="space-y-4 w-[90vw] mx-auto">
+                <Skeleton className="h-[40vh] w-full" />
+                <Skeleton className="h-[10vh] w-full" />
+                <Skeleton className="h-[20vh] w-full" />
+            </div>
+        );
+    }
 
     const product = {
-        image: 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/450ed1df-8e17-4d87-a244-85697874661c/NIKE+REVOLUTION+7.png',
-        title: 'Premium Running Shoes',
+        image: "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/450ed1df-8e17-4d87-a244-85697874661c/NIKE+REVOLUTION+7.png",
+        title: "Premium Running Shoes",
         rating: 4.5,
         price: 129.99,
-        desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci deserunt eveniet illo labore necessitatibus qui sit. Atque culpa dolorum inventore nobis voluptatibus? Accusantium amet architecto aspernatur aut beatae cum deleniti dolor doloribus eligendi eum explicabo facilis fuga fugit illum iste necessitatibus non obcaecati, odit perspiciatis reiciendis sint sit vero voluptas.',
+        desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci deserunt eveniet illo labore necessitatibus qui sit. Atque culpa dolorum inventore nobis voluptatibus? Accusantium amet architecto aspernatur aut beatae cum deleniti dolor doloribus eligendi eum explicabo facilis fuga fugit illum iste necessitatibus non obcaecati, odit perspiciatis reiciendis sint sit vero voluptas.",
         sizes: [7, 8, 9, 10, 11],
-        colors: ["Bright Red", "Deep Green", "Navy Blue"]
+        colors: ["Bright Red", "Deep Green", "Navy Blue"],
     };
 
-    return (
-        <div className="container mx-auto p-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="rounded-lg overflow-hidden shadow-lg">
-                    <Image
-                        width={500}
-                        height={500}
-                        src={product.image}
-                        alt={product.title}
-                        className="w-full max-h-[80vh] object-cover"
-                    />
-                </div>
-                <div className="flex flex-col justify-between">
-                    <div>
-                        <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
-                        <div className="flex items-center mb-2">
-                            <FaStar className="text-yellow-400 mr-1"/>
-                            <span>{product.rating}</span>
-                        </div>
-                        <p className="text-2xl font-semibold mb-4">${product.price}</p>
-                        <div className="mb-4">
-                            <h2 className="text-lg font-semibold mb-2">Select Size:</h2>
-                            <div className="flex space-x-2 my-2">
-                                {product.sizes.map((size) => (
-                                    <button
-                                        key={size}
-                                        className={`px-3 py-2 border rounded-md transition-colors ${selectedSize === size ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'}`}
-                                        onClick={() => setSelectedSize(size)}
-                                    >
-                                        {size}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="flex space-x-2 my-2">
-                                {product.colors.map((color) => (
-                                    <button
-                                        key={color}
-                                        className={`px-3 py-2 border rounded-md transition-colors ${color === selectedColor ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'}`}
-                                        onClick={() => setSelectedColor(color)}
-                                    >
-                                        {color}
-                                    </button>
-                                ))}
-                            </div>
-                            <p className="text-gray-600 my-4">{product.desc}</p>
-                        </div>
+    if (!query.isFetching && query.data?.error) {
+        return (
+            <div
+                className={
+                    "p-10 h-[90vh] bg-neutral-100 flex flex-col items-center gap-2 justify-center"
+                }
+            >
+                <h1 className="text-[10rem] border-b border-neutral-400 py-5 font-bold">
+                    404
+                </h1>
+                <h4 className="text-2xl py-5 font-semibold text-neutral-600">
+                    Page Not Found
+                </h4>
+                <Link href={"/"}>
+                    <Button className={"cursor-pointer"} size={"lg"}>
+                        Go to Home
+                    </Button>
+                </Link>
+            </div>
+        );
+    }
+
+    if (!query.isFetching && !query.data?.error) {
+        return (
+            <div className="container mx-auto p-4 my-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="rounded-lg overflow-hidden shadow-lg max-h-[70vh] md:max-w-[35vw]">
+                        <Image
+                            width={500}
+                            height={500}
+                            src={query.data.product.image}
+                            alt={query.data.product.productName}
+                            className="w-full h-full max-h-[70vh] md:max-w-[35vw] object-contain aspect-square"
+                        />
                     </div>
-                    <div className="flex flex-col justify-center gap-4">
-                        <Button>
-                            <FaShoppingCart className="mr-2"/> Add to Cart
-                        </Button>
-                        <Button variant={"outline"}>Buy Now</Button>
-                    </div>
-                    <div className="mt-6 space-y-2">
-                        <div className="flex items-center">
-                            <FaShippingFast className="mr-2 text-gray-600"/>
-                            <span>Free Shipping</span>
+                    <div className="flex flex-col justify-between">
+                        <div>
+                            <h1 className="text-3xl font-bold mb-2">
+                                {query.data.product.productName}
+                            </h1>
+                            <div className="mb-4">
+                                <p className="text-gray-600 my-4">
+                                    {query.data.product.description}
+                                </p>
+                                <div className="flex space-x-2 my-2">
+                                    {query.data.product.sizes.map(
+                                        (size: string) => (
+                                            <button
+                                                key={size}
+                                                className={`px-3 py-2 border rounded-md transition-colors ${
+                                                    selectedSize === size
+                                                        ? "bg-neutral-200"
+                                                        : "hover:bg-gray-100"
+                                                }`}
+                                                onClick={() =>
+                                                    setSelectedSize(size)
+                                                }
+                                            >
+                                                {size}
+                                            </button>
+                                        )
+                                    )}
+                                </div>
+                                <div className="flex space-x-2 my-2">
+                                    {query.data.product.colors.map(
+                                        (color: string) => (
+                                            <button
+                                                key={color}
+                                                className={`p-2 border rounded-full transition-colors ${
+                                                    color === selectedColor
+                                                        ? "bg-neutral-200 text-white"
+                                                        : "hover:bg-gray-100"
+                                                }`}
+                                                onClick={() =>
+                                                    setSelectedColor(color)
+                                                }
+                                            >
+                                                <div
+                                                    key={color}
+                                                    className={`w-6 h-6 rounded-full cursor-default ${
+                                                        color.toLowerCase() ==
+                                                        "white"
+                                                            ? "border border-neutral-400"
+                                                            : ""
+                                                    }`}
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}
+                                                    title={color} // Optional: shows color name on hover
+                                                />
+                                            </button>
+                                        )
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <FaExchangeAlt className="mr-2 text-gray-600"/>
-                            <span>30-Day Return Policy</span>
+                        <div className="flex flex-col justify-center gap-4">
+                            <p className="text-2xl font-semibold mb-4">
+                                ${query.data.product.price}
+                            </p>
+                            <Button
+                                onClick={() => {
+                                    if (selectedColor && selectedSize) {
+                                        console.log(selectedSize);
+                                        console.log(selectedColor);
+                                        toast.success(
+                                            "Product has been added to Cart"
+                                        );
+
+                                        // Modify crat state by adding the product to it here. Then, procedd to reset all selections
+
+                                        setSelectedColor(null)
+                                        setSelectedSize(null)
+                                    }
+                                    else{
+                                        toast.error("Please select color and size")
+                                    }
+                                }}
+                            >
+                                <FaShoppingCart className="mr-2" /> Add to Cart
+                            </Button>
+                            <Button variant={"outline"}>Buy Now</Button>
                         </div>
-                        <div className="flex items-center">
-                            <FaLock className="mr-2 text-gray-600"/>
-                            <span>Secure Payment</span>
+                        <div className="mt-6 space-y-2">
+                            <div className="flex items-center">
+                                <FaShippingFast className="mr-2 text-gray-600" />
+                                <span>Free Shipping</span>
+                            </div>
+                            <div className="flex items-center">
+                                <FaExchangeAlt className="mr-2 text-gray-600" />
+                                <span>30-Day Return Policy</span>
+                            </div>
+                            <div className="flex items-center">
+                                <FaLock className="mr-2 text-gray-600" />
+                                <span>Secure Payment</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default ProductOverview;

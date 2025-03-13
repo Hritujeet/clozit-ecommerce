@@ -4,6 +4,8 @@ const orderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.ObjectId, ref: "User" },
     products: [{
         product: { type: mongoose.Schema.ObjectId, ref: "Product" },
+        color: String,
+        size: String,
         quantity: { type: Number, default: 1 } // Track quantity of each product
     }],
     isPayed: { type: Boolean, default: false },
