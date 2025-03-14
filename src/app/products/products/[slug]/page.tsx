@@ -4,6 +4,7 @@ import ReviewsContainer from "@/components/ReviewsContainer";
 
 const Page = async ({params} : {params: {slug: string | undefined}}) => {
     const {slug} = await (params)
+
     return (
         <div>
             <ProductOverview slug={slug as string}/>

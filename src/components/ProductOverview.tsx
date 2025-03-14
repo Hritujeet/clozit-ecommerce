@@ -10,14 +10,14 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "./ui/skeleton";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 const ProductOverview = ({ slug }: { slug: string }) => {
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
-    const router = useRouter();
+    const session = useSession();
 
     const query = useQuery({
         queryFn: async () => {
@@ -37,16 +37,6 @@ const ProductOverview = ({ slug }: { slug: string }) => {
             </div>
         );
     }
-
-    const product = {
-        image: "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/450ed1df-8e17-4d87-a244-85697874661c/NIKE+REVOLUTION+7.png",
-        title: "Premium Running Shoes",
-        rating: 4.5,
-        price: 129.99,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci deserunt eveniet illo labore necessitatibus qui sit. Atque culpa dolorum inventore nobis voluptatibus? Accusantium amet architecto aspernatur aut beatae cum deleniti dolor doloribus eligendi eum explicabo facilis fuga fugit illum iste necessitatibus non obcaecati, odit perspiciatis reiciendis sint sit vero voluptas.",
-        sizes: [7, 8, 9, 10, 11],
-        colors: ["Bright Red", "Deep Green", "Navy Blue"],
-    };
 
     if (!query.isFetching && query.data?.error) {
         return (
@@ -151,19 +141,38 @@ const ProductOverview = ({ slug }: { slug: string }) => {
                             <Button
                                 onClick={() => {
                                     if (selectedColor && selectedSize) {
-                                        console.log(selectedSize);
-                                        console.log(selectedColor);
+                                        if (session?.data) {
+                                            // use mutation using cart server actions
+                                            const cartData = {
+                                                email: session.data.user?.email,
+                                                productId:
+                                                    query.data.product._id,
+                                                color: selectedColor,
+                                                size: selectedSize,
+                                                price: query.data.product.price,
+                                            };
+                                            console.log(cartData);
+                                        } else {
+                                            // call utility function from utils.ts to add to local storage
+                                            const cartData = {
+                                                name: query.data.product
+                                                    .productName,
+                                                color: selectedColor,
+                                                size: selectedSize,
+                                                price: query.data.product.price,
+                                            };
+                                            console.log(cartData);
+                                        }
                                         toast.success(
                                             "Product has been added to Cart"
                                         );
 
-                                        // Modify crat state by adding the product to it here. Then, procedd to reset all selections
-
-                                        setSelectedColor(null)
-                                        setSelectedSize(null)
-                                    }
-                                    else{
-                                        toast.error("Please select color and size")
+                                        setSelectedColor(null);
+                                        setSelectedSize(null);
+                                    } else {
+                                        toast.error(
+                                            "Please select color and size"
+                                        );
                                     }
                                 }}
                             >
