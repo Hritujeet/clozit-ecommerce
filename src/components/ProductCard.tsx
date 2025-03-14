@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ShoppingCartIcon } from "lucide-react";
 import { ProductCardType } from "@/utils/types";
 
 const ProductCard = (props: ProductCardType) => {
@@ -13,7 +11,7 @@ const ProductCard = (props: ProductCardType) => {
             <div className="h-60 w-full">
                 <Link href={`/products/products/${slug}`}>
                     <Image
-                        className="mx-auto aspect-auto w-auto h-full dark:hidden"
+                        className="mx-auto aspect-auto w-auto h-full dark:hidden transition-all duration-300 hover:scale-125"
                         src={img}
                         alt="product-image"
                         width={200}
@@ -63,10 +61,6 @@ const ProductCard = (props: ProductCardType) => {
                     <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
                         ${price}
                     </p>
-                    <Button>
-                        <ShoppingCartIcon />
-                        Add to cart
-                    </Button>
                 </div>
             </div>
         </div>

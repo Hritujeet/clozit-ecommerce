@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ProductCardType } from "@/utils/types";
 import Image from "next/image";
 
@@ -8,7 +7,7 @@ const FeaturedProductCard = (props: ProductCardType) => {
     const { name, price, img, slug, avlSizes, colors } = props;
     return (
         <div>
-            <div className="relative group">
+            <div className="relative group shadow-md px-4 py-2 rounded-lg">
                 <div className="overflow-hidden aspect-w-1 aspect-h-1">
                     <Image
                         className="mx-auto aspect-auto w-auto h-60 md:h-72 dark:hidden transition-all duration-300 group-hover:scale-125"
@@ -68,9 +67,6 @@ const FeaturedProductCard = (props: ProductCardType) => {
                         })}
                     </div>
                 </div>
-            </div>
-            <div className={"my-5 w-full"}>
-                <Button className={"w-full"}>Add to Cart</Button>
             </div>
         </div>
     );
