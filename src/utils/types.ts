@@ -34,3 +34,18 @@ export type ProductCardType = {
 };
 
 
+export type CartDataServer = {
+    email: string,
+    productId: string,
+    color: string,
+    size: string,
+    price: number
+}
+
+export type CartDataClient = {
+    name: string,
+    color: string,
+    size: string,
+    price: number,
+}
+

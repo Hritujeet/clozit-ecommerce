@@ -1,23 +1,23 @@
 "use client";
-import React, { useState } from "react";
-import {
-    FaExchangeAlt,
-    FaLock,
-    FaShippingFast,
-    FaShoppingCart,
-} from "react-icons/fa";
+import React, {useState} from "react";
+import {FaExchangeAlt, FaLock, FaShippingFast, FaShoppingCart,} from "react-icons/fa";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "./ui/skeleton";
+import {Button} from "@/components/ui/button";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {Skeleton} from "./ui/skeleton";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
+import {addToCartClient} from "@/utils/cart-client";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import {addToCartServer} from "@/actions/cart.actions";
+import {CartDataClient, CartDataServer} from "@/utils/types";
 
-const ProductOverview = ({ slug }: { slug: string }) => {
+const ProductOverview = ({slug}: { slug: string }) => {
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
     const session = useSession();
+    const queryClient = useQueryClient();
 
     const query = useQuery({
         queryFn: async () => {
@@ -28,12 +28,25 @@ const ProductOverview = ({ slug }: { slug: string }) => {
         queryKey: ["product"],
     });
 
+    const mutation = useMutation({
+        mutationFn: async (data: CartDataServer) => {
+            await addToCartServer(data)
+            return "hello"
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["cart"]})
+            toast.success(
+                "Product has been added to Cart"
+            )
+        }
+    })
+
     if (query.isFetching) {
         return (
             <div className="space-y-4 w-[90vw] mx-auto">
-                <Skeleton className="h-[40vh] w-full" />
-                <Skeleton className="h-[10vh] w-full" />
-                <Skeleton className="h-[20vh] w-full" />
+                <Skeleton className="h-[40vh] w-full"/>
+                <Skeleton className="h-[10vh] w-full"/>
+                <Skeleton className="h-[20vh] w-full"/>
             </div>
         );
     }
@@ -139,33 +152,34 @@ const ProductOverview = ({ slug }: { slug: string }) => {
                                 ${query.data.product.price}
                             </p>
                             <Button
+                                disabled={mutation.isPending}
                                 onClick={() => {
                                     if (selectedColor && selectedSize) {
                                         if (session?.data) {
                                             // use mutation using cart server actions
-                                            const cartData = {
-                                                email: session.data.user?.email,
+                                            const cartData: CartDataServer = {
+                                                email: session.data.user?.email as string,
                                                 productId:
-                                                    query.data.product._id,
+                                                query.data.product._id as string,
                                                 color: selectedColor,
                                                 size: selectedSize,
-                                                price: query.data.product.price,
+                                                price: query.data.product.price as number,
                                             };
-                                            console.log(cartData);
+                                            mutation.mutate(cartData)
                                         } else {
                                             // call utility function from utils.ts to add to local storage
-                                            const cartData = {
+                                            const cartData: CartDataClient = {
                                                 name: query.data.product
                                                     .productName,
                                                 color: selectedColor,
                                                 size: selectedSize,
                                                 price: query.data.product.price,
                                             };
-                                            console.log(cartData);
+                                            addToCartClient(cartData)
+                                            toast.success(
+                                                "Product has been added to Cart"
+                                            );
                                         }
-                                        toast.success(
-                                            "Product has been added to Cart"
-                                        );
 
                                         setSelectedColor(null);
                                         setSelectedSize(null);
@@ -176,21 +190,22 @@ const ProductOverview = ({ slug }: { slug: string }) => {
                                     }
                                 }}
                             >
-                                <FaShoppingCart className="mr-2" /> Add to Cart
+                                {mutation.isPending ? <LoadingSpinner/> : <><FaShoppingCart className="mr-2"/> Add to
+                                    Cart</>}
                             </Button>
                             <Button variant={"outline"}>Buy Now</Button>
                         </div>
                         <div className="mt-6 space-y-2">
                             <div className="flex items-center">
-                                <FaShippingFast className="mr-2 text-gray-600" />
+                                <FaShippingFast className="mr-2 text-gray-600"/>
                                 <span>Free Shipping</span>
                             </div>
                             <div className="flex items-center">
-                                <FaExchangeAlt className="mr-2 text-gray-600" />
+                                <FaExchangeAlt className="mr-2 text-gray-600"/>
                                 <span>30-Day Return Policy</span>
                             </div>
                             <div className="flex items-center">
-                                <FaLock className="mr-2 text-gray-600" />
+                                <FaLock className="mr-2 text-gray-600"/>
                                 <span>Secure Payment</span>
                             </div>
                         </div>

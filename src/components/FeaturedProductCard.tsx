@@ -7,7 +7,7 @@ const FeaturedProductCard = (props: ProductCardType) => {
     const { name, price, img, slug, avlSizes, colors } = props;
     return (
         <div>
-            <div className="relative group shadow-md px-4 py-2 rounded-lg">
+            <div className="relative group shadow-md px-4 py-2 rounded-lg aspect-square">
                 <div className="overflow-hidden aspect-w-1 aspect-h-1">
                     <Image
                         className="mx-auto aspect-auto w-auto h-60 md:h-72 dark:hidden transition-all duration-300 group-hover:scale-125"

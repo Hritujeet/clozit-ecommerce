@@ -1,22 +1,67 @@
 "use server"
+import {Cart} from "@/models/Cart"
+import {User} from "@/models/User"
+import {CartItem} from "@/models/CartItem"
+import {connectDb} from "@/utils/db"
+import {CartDataServer} from "@/utils/types"
 
-import { Cart } from "@/models/Cart"
-import { User } from "@/models/User"
-import { connectDb } from "@/utils/db"
+export const addToCartServer = async (data: CartDataServer) => {
+    try {
+        await connectDb();
 
-export const addToCartServer = async (email: string)=>{
-    // Get cart data here and manage cart oprations of adding an item here. If cart is not there, create one. Else, simply update the existing
-    await connectDb()
+        const user = await User.findOne({email: data.email});
+        if (!user) {
+            throw new Error("User not found");
+        }
 
-    const user = await User.find({email});
-    console.log(user);
-}
+        let cart = await Cart.findOne({user: user._id}).populate("items");
+        if (!cart) {
+            cart = new Cart({
+                user: user._id,
+                items: [],
+                subtotal: 0
+            });
+            await cart.save();
+        }
 
-export const clearCartServer = async (cartId: string) => {
-    await connectDb()
-    await Cart.findByIdAndDelete(cartId);
-}
+        // Check if the same product with the same variant exists in the cart
+        const existingItem = await CartItem.findOne({
+            cart: cart._id,
+            product: data.productId,
+            variant: {
+                color: data.color,
+                size: data.size
+            }, // Ensures variant uniqueness
+        });
 
-export const removeFromCartServer = async () => {
-    // Fetch Product Id remove the product from cart here
-}
+        if (existingItem) {
+            existingItem.quantity += 1;
+            await existingItem.save();
+        } else {
+            const newCartItem = new CartItem({
+                cart: cart._id,
+                product: data.productId,
+                variant: {
+                    color: data.color,
+                    size: data.size
+                }, // Stores the variant
+                quantity: 1,
+            });
+            await newCartItem.save();
+            cart.items.push(newCartItem._id);
+        }
+
+        // Recalculate subtotal
+        const updatedItems = await CartItem.find({cart: cart._id});
+        cart.subtotal = updatedItems.reduce((sum, item) => sum + item.quantity * data.price, 0);
+
+        await cart.save();
+
+        return {success: true};
+
+    } catch (error) {
+        console.error("Error in addToCartServer:", error);
+        return {success: false, error: "Failed to add item to cart"};
+    }
+};
+
