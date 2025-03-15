@@ -11,10 +11,6 @@ export const addToCartServer = async (data: CartDataServer) => {
 
         // Find user model to get user id
         const user = await User.findOne({email: data.email});
-        if (!user) {
-            throw new Error("User not found");
-        }
-
         let cart = await Cart.findOne({user: user._id}).populate("items");
         if (!cart) {
             cart = new Cart({
