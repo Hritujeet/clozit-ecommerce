@@ -9,6 +9,7 @@ export const addToCartServer = async (data: CartDataServer) => {
     try {
         await connectDb();
 
+        // Find user model to get user id
         const user = await User.findOne({email: data.email});
         if (!user) {
             throw new Error("User not found");
