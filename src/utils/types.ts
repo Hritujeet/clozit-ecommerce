@@ -43,6 +43,7 @@ export type CartDataServer = {
 }
 
 export type CartDataClient = {
+    id: string,
     name: string,
     color: string,
     size: string,

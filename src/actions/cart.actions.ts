@@ -1,7 +1,6 @@
 "use server"
-import {Cart} from "@/models/Cart"
+import {Cart, CartItem} from "@/models/Cart"
 import {User} from "@/models/User"
-import {CartItem} from "@/models/CartItem"
 import {connectDb} from "@/utils/db"
 import {CartDataServer} from "@/utils/types"
 

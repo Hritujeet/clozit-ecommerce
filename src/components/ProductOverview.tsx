@@ -169,6 +169,7 @@ const ProductOverview = ({slug}: { slug: string }) => {
                                         } else {
                                             // call utility function from utils.ts to add to local storage
                                             const cartData: CartDataClient = {
+                                                id: query.data.product._id,
                                                 name: query.data.product
                                                     .productName,
                                                 color: selectedColor,
