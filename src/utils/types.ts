@@ -39,7 +39,7 @@ export type CartDataServer = {
     productId: string,
     color: string,
     size: string,
-    price: number
+    price: number,
 }
 
 export type CartDataClient = {
@@ -47,5 +47,6 @@ export type CartDataClient = {
     color: string,
     size: string,
     price: number,
+    slug: string
 }
 

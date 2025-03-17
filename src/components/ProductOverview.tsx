@@ -163,7 +163,7 @@ const ProductOverview = ({slug}: { slug: string }) => {
                                                 query.data.product._id as string,
                                                 color: selectedColor,
                                                 size: selectedSize,
-                                                price: query.data.product.price as number,
+                                                price: query.data.product.price as number
                                             };
                                             mutation.mutate(cartData)
                                         } else {
@@ -174,6 +174,7 @@ const ProductOverview = ({slug}: { slug: string }) => {
                                                 color: selectedColor,
                                                 size: selectedSize,
                                                 price: query.data.product.price,
+                                                slug: query.data.product.slug
                                             };
                                             addToCartClient(cartData)
                                             toast.success(
