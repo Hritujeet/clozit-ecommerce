@@ -9,13 +9,13 @@ type CartElement = {
 
 export const addToCartClient = (data: CartDataClient) => {
     const localCart: CartElement[] = JSON.parse(localStorage.getItem("Cart") || "[]");
-    
-    const existingItem = localCart.find((element: CartElement) => 
+
+    const existingItem: CartElement = localCart.find((element: CartElement) =>
         element.product.name === data.name &&
         element.product.size === data.size &&
         element.product.color === data.color
-    );
-    
+    ) as CartElement;
+
     if (existingItem) {
         existingItem.qty += 1;
     } else {
@@ -24,15 +24,30 @@ export const addToCartClient = (data: CartDataClient) => {
             qty: 1
         });
     }
-    
+
     localStorage.setItem("Cart", JSON.stringify(localCart));
     console.log("Updated Cart:", localCart);
 };
 
-export const removeFromCartClient = () => {
+export const removeFromCartClient = (data: CartDataClient) => {
+    const localCart: CartElement[] = JSON.parse(localStorage.getItem("Cart") || "[]");
+    const existingItemIndex = localCart.findIndex((element: CartElement) =>
+        element.product.name === data.name &&
+        element.product.size === data.size &&
+        element.product.color === data.color
+    );
 
+    if (existingItemIndex !== -1) {
+        const existingItem = localCart[existingItemIndex];
+        if (existingItem.qty > 1) {
+            existingItem.qty -= 1;
+        } else {
+            // Remove the item completely using splice
+            localCart.splice(existingItemIndex, 1);
+        }
+        localStorage.setItem("Cart", JSON.stringify(localCart));
+    }
 }
-
 export const clearCartClient = () => {
     localStorage.removeItem("Cart")
 }

@@ -6,7 +6,7 @@ import {useSession} from "next-auth/react";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {addToCartServer} from "@/actions/cart.actions";
 import {CartDataClient, CartDataServer} from "@/utils/types";
-import {addToCartClient} from "@/utils/cart-client";
+import {addToCartClient, removeFromCartClient} from "@/utils/cart-client";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 type CartItemProps = {
@@ -53,6 +53,29 @@ const CartItem = (props: CartItemProps) => {
         }
     });
 
+    const removeMutation = useMutation({
+        mutationFn: async () => {
+            if (session.data) {
+                // Update cart on server when logged in
+                console.log("Implement Remove from cart Server")
+            } else {
+                // Update cart in local storage when not logged in
+                const data = {
+                    id: props.id,
+                    name: props.name,
+                    color: props.color,
+                    size: props.size,
+                    price: props.price,
+                    slug: props.slug
+                } as CartDataClient;
+                removeFromCartClient(data);
+            }
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["cart"]});
+        }
+    });
+
     return (
         <div className="flex justify-between aspect-auto w-full items-center space-x-2 sm:space-x-4 shadow-lg py-4 px-6 rounded-md">
             <div className="flex flex-col justify-between w-full pb-4">
@@ -82,8 +105,10 @@ const CartItem = (props: CartItemProps) => {
                     <Button
                         size={"icon"}
                         className="flex justify-center items-center px-2 py-1"
+                        disabled={removeMutation.isPending}
+                        onClick={() => removeMutation.mutate()}
                     >
-                        {addMutation.isPending ? <LoadingSpinner/> : <MinusCircle/>}
+                        {removeMutation.isPending ? <LoadingSpinner/> : <MinusCircle/>}
                     </Button>
                 </div>
             </div>

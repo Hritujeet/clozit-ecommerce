@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="899d62e4-bbb9-46b1-b6b1-e366493e5dae" name="Changes" comment="dev">
+      <change beforePath="$PROJECT_DIR$/src/components/CartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FeaturedProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeaturedProductCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/cart-client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/cart-client.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="tsconfig.json" />
+        <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="false" />
+    <option name="myAllFileTypesSelected" value="true" />
+    <option name="mySelectedFileTypes">
+      <set />
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2tfWZiXrYB8XgyvH7r6A2MOmGiE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Python&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Web\\NextJS\\clozit-ecommerce\\node_modules\\typescript\\lib&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mongo&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Web\NextJS\clozit-ecommerce\src\app" />
+      <recent name="D:\Web\NextJS\clozit-ecommerce\src\app\api\products\category\[category]" />
+      <recent name="D:\Web\NextJS\clozit-ecommerce\src\assets" />
+      <recent name="D:\Web\NextJS\clozit-ecommerce\src" />
+      <recent name="D:\Web\NextJS\clozit-ecommerce\src\components" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="false" />
+      <option name="INTERPRETER_PATH" value="C:/Program Files/Git/bin/bash.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="899d62e4-bbb9-46b1-b6b1-e366493e5dae" name="Changes" comment="" />
+      <created>1740743667695</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740743667695</updated>
+      <workItem from="1740743670713" duration="12719000" />
+      <workItem from="1740817164834" duration="2083000" />
+      <workItem from="1740919243698" duration="2608000" />
+      <workItem from="1740922419000" duration="710000" />
+      <workItem from="1740987786011" duration="302000" />
+      <workItem from="1740989441070" duration="3000" />
+      <workItem from="1740997621401" duration="9000" />
+      <workItem from="1740999401469" duration="1589000" />
+      <workItem from="1741018733786" duration="2784000" />
+      <workItem from="1741065222557" duration="3653000" />
+      <workItem from="1741605038293" duration="2055000" />
+      <workItem from="1741607140276" duration="3894000" />
+      <workItem from="1742024816514" duration="4639000" />
+      <workItem from="1742031347989" duration="519000" />
+      <workItem from="1742104304345" duration="2625000" />
+      <workItem from="1742196636115" duration="519000" />
+      <workItem from="1742198028549" duration="5183000" />
+      <workItem from="1742218855147" duration="556000" />
+      <workItem from="1742293247196" duration="644000" />
+    </task>
+    <task id="LOCAL-00001" summary="dev">
+      <option name="closed" value="true" />
+      <created>1740819046773</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740819046773</updated>
+    </task>
+    <task id="LOCAL-00002" summary="dev">
+      <option name="closed" value="true" />
+      <created>1741068559748</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1741068559748</updated>
+    </task>
+    <task id="LOCAL-00003" summary="dev">
+      <option name="closed" value="true" />
+      <created>1741068751351</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741068751351</updated>
+    </task>
+    <task id="LOCAL-00004" summary="dev">
+      <option name="closed" value="true" />
+      <created>1741068893044</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741068893044</updated>
+    </task>
+    <task id="LOCAL-00005" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742031186338</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742031186338</updated>
+    </task>
+    <task id="LOCAL-00006" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742031463479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1742031463480</updated>
+    </task>
+    <task id="LOCAL-00007" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742031499513</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1742031499513</updated>
+    </task>
+    <task id="LOCAL-00008" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742031640230</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742031640230</updated>
+    </task>
+    <task id="LOCAL-00009" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742202134381</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1742202134381</updated>
+    </task>
+    <task id="LOCAL-00010" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742207045175</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742207045175</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="dev" />
+    <option name="LAST_COMMIT_MESSAGE" value="dev" />
+  </component>
+</project>
