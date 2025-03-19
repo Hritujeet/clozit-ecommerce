@@ -112,7 +112,7 @@ const CartItem = (props: CartItemProps) => {
                             addMutation.mutate()
                         }}
                     >
-                        {addMutation.isPending ? <LoadingSpinner/> : <PlusCircle/>}
+                        {removeMutation.isPending || addMutation.isPending ? <LoadingSpinner/> : <PlusCircle/>}
                     </Button>
                     <span className={"font-semibold"}>{props.qty}</span>
                     <Button
@@ -123,7 +123,7 @@ const CartItem = (props: CartItemProps) => {
                             removeMutation.mutate()
                         }}
                     >
-                        {removeMutation.isPending ? <LoadingSpinner/> : <MinusCircle/>}
+                        {removeMutation.isPending || addMutation.isPending ? <LoadingSpinner/> : <MinusCircle/>}
                     </Button>
                 </div>
             </div>
