@@ -94,6 +94,7 @@ const ShoppingCart = () => {
                                 if (!session.data) {
                                     clearCartClient();
                                     toast.success("Cart has been Cleared!")
+                                    window.location.reload()
                                 } else {
                                     clearCartMutation.mutate();
                                     toast.success("Cart has been Cleared!")
