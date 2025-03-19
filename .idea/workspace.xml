@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="899d62e4-bbb9-46b1-b6b1-e366493e5dae" name="Changes" comment="dev">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/cart.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/cart.actions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/cart/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/cart/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ShoppingCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShoppingCart.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="899d62e4-bbb9-46b1-b6b1-e366493e5dae" name="Changes" comment="dev" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,7 +122,7 @@
       <workItem from="1742198028549" duration="5183000" />
       <workItem from="1742218855147" duration="556000" />
       <workItem from="1742293247196" duration="3792000" />
-      <workItem from="1742363992682" duration="299000" />
+      <workItem from="1742363992682" duration="647000" />
     </task>
     <task id="LOCAL-00001" summary="dev">
       <option name="closed" value="true" />
@@ -222,7 +212,23 @@
       <option name="project" value="LOCAL" />
       <updated>1742294074170</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742364380881</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1742364380881</updated>
+    </task>
+    <task id="LOCAL-00013" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742364613257</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1742364613257</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

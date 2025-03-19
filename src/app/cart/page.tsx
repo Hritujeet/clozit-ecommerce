@@ -6,7 +6,9 @@ const Page = () => {
     return (
         <div>
             <ShoppingCart></ShoppingCart>
-            <FeaturedProducts></FeaturedProducts>
+            <div className="aspect-auto">
+                <FeaturedProducts></FeaturedProducts>
+            </div>
         </div>
     );
 };
