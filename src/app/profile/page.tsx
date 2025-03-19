@@ -3,14 +3,14 @@ import React from 'react';
 import {BsCart} from "react-icons/bs";
 import Link from "next/link";
 import {buttonVariants} from "@/components/ui/button";
-import {Phone, UserCircle} from "lucide-react";
+import {UserCircle} from "lucide-react";
 
 const Page = async () => {
     const authData = await auth()
     console.log(authData);
 
     return (
-        <div className='flex flex-col gap-4 w-[80vw] py-20 mx-auto'>
+        <div className='flex flex-col gap-4 w-[80vw] mt-10 mx-auto'>
             <div className="overview grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div
                     className="card flex flex-col justify-center items-center px-8 py-4 border rounded-md cursor-default gap-2">
