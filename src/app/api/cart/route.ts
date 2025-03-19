@@ -18,6 +18,7 @@ type CartItemData = {
 
 export async function GET() {
     const userSession = await auth()
+    console.log(userSession)
     await connectDb()
 
     const user = await User.findOne({username: userSession?.user?.name}).select("_id")

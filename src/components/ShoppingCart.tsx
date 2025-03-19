@@ -1,7 +1,7 @@
 "use client"
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import CartItem from "@/components/CartItem";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 import {Button} from "@/components/ui/button";
 import bag from "@/assets/bag.png"
@@ -9,25 +9,45 @@ import Image from "next/image";
 import {CartDataClient} from "@/utils/types";
 import {clearCartClient} from "@/utils/cart-client";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import {clearCartServer} from "@/actions/cart.actions";
+import toast from "react-hot-toast";
 
 const ShoppingCart = () => {
     const session = useSession();
+    const [subtotal, setSubtotal] = useState(0);
+    const queryClient = useQueryClient()
 
     const query = useQuery({
         queryFn: async () => {
             if (session.data) {
-                // Fetch cart from server when logged in
                 const response = await fetch("/api/cart");
                 return await response.json();
             } else {
-                // Fetch cart from local storage when not logged in
                 return {
                     cart: JSON.parse(localStorage.getItem("Cart") as string) || []
                 };
             }
         },
-        queryKey: ["cart", session.data] // Include session.data in the query key to refetch when auth status changes
+        queryKey: ["cart", session.data]
     });
+
+    const clearCartMutation = useMutation({
+        mutationFn: async () => {
+            await clearCartServer(session.data?.user?.email as string)
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({queryKey: ["cart"]})
+        }
+    })
+
+    // Calculate subtotal when cart data changes
+    useEffect(() => {
+        if (query.data?.cart) {
+            const newSubtotal = query.data.cart.reduce((sum: number, item: { product: CartDataClient, qty: number }) =>
+                sum + (item.product.price * item.qty), 0);
+            setSubtotal(newSubtotal);
+        }
+    }, [query.data]);
 
     if (query.isFetching) return (
         <div className={"flex md:flex-row flex-col justify-center items-center h-[40vh] bg-neutral-100 gap-4"}>
@@ -62,18 +82,23 @@ const ShoppingCart = () => {
                     </ul>
                     <div className="space-y-2">
                         <p>Total amount:
-                            <span className="font-semibold mx-2">357 €</span>
+                            <span className="font-semibold mx-2">${subtotal}</span>
                         </p>
                         <p className="text-sm dark:text-gray-600">Not including taxes and shipping costs</p>
                     </div>
                     <div className="flex justify-start space-x-4">
                         <Button>Checkout</Button>
-                        <Button onClick={() => {
-                            if (!session.data) {
-                                clearCartClient();
-                                window.location.reload();
-                            }
-                        }}>Clear Cart</Button>
+                        <Button
+                            disabled={clearCartMutation.isPending}
+                            onClick={() => {
+                                if (!session.data) {
+                                    clearCartClient();
+                                    toast.success("Cart has been Cleared!")
+                                } else {
+                                    clearCartMutation.mutate();
+                                    toast.success("Cart has been Cleared!")
+                                }
+                            }}>{clearCartMutation.isPending ? <LoadingSpinner /> : "Clear Cart"}</Button>
                     </div>
                 </>
             )}

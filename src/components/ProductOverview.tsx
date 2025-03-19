@@ -33,8 +33,8 @@ const ProductOverview = ({slug}: { slug: string }) => {
             await addToCartServer(data)
             return "hello"
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ["cart"]})
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({queryKey: ["cart"]})
             toast.success(
                 "Product has been added to Cart"
             )
