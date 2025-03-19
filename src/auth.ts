@@ -42,6 +42,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     id: userObject._id.toString(),
                     name: userObject.username,
                     email: userObject.email,
+                    fname: userObject.fName,
+                    lname: userObject.lName
                 };
             },
         }),
