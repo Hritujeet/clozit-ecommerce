@@ -12,7 +12,6 @@ const productSchema = new mongoose.Schema({
     image: { type: String, required: true },
     sizes: [{ type: String, enum: ["SM", "M", "L", "XL", "XXL"], required: true }],
     colors: [{ type: String, required: true }],
-    reviews: [{ type: mongoose.Schema.ObjectId, ref: "Review" }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });

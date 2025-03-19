@@ -24,7 +24,7 @@ const ProductGrid = ({title, fetchURL}: { title: string, fetchURL: string }) => 
                 {error && <p className="text-red-500">Error loading products.</p>}
 
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {isFetching
+                    {isFetching && !data?.products
                         ? Array.from({length: 5}).map((_, index) => <ProductSkeleton key={index}/>)
                         : data.products.map((item: Product, index: number) => (
                             <ProductCard
