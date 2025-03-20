@@ -124,6 +124,8 @@ export async function removeFromCartServer(data: CartDataServer) {
 export async function clearCartServer(email: string) {
     const user = await User.findOne({ email: email }).select("_id");
     const cart = await Cart.findOneAndDelete({ user: user._id });
+    if (!cart) return;
+
     await cart.populate("items")
     await CartItem.deleteMany({cart: cart._id})
 }

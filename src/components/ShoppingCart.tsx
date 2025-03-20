@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import CartItem from "@/components/CartItem";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
-import {Button} from "@/components/ui/button";
+import {Button, buttonVariants} from "@/components/ui/button";
 import bag from "@/assets/bag.png"
 import Image from "next/image";
 import {CartDataClient} from "@/utils/types";
@@ -11,6 +11,7 @@ import {clearCartClient} from "@/utils/cart-client";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import {clearCartServer} from "@/actions/cart.actions";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const ShoppingCart = () => {
     const session = useSession();
@@ -87,7 +88,8 @@ const ShoppingCart = () => {
                         <p className="text-sm dark:text-gray-600">Not including taxes and shipping costs</p>
                     </div>
                     <div className="flex justify-start space-x-4">
-                        <Button>Checkout</Button>
+                        <Link href={session.status == "authenticated" ? "/checkout" : "/auth/sign-in"}
+                              className={buttonVariants({variant: "default"})}>Checkout</Link>
                         <Button
                             disabled={clearCartMutation.isPending}
                             onClick={() => {
@@ -99,7 +101,7 @@ const ShoppingCart = () => {
                                     clearCartMutation.mutate();
                                     toast.success("Cart has been Cleared!")
                                 }
-                            }}>{clearCartMutation.isPending ? <LoadingSpinner /> : "Clear Cart"}</Button>
+                            }}>{clearCartMutation.isPending ? <LoadingSpinner/> : "Clear Cart"}</Button>
                     </div>
                 </>
             )}
