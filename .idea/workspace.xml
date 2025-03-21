@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="899d62e4-bbb9-46b1-b6b1-e366493e5dae" name="Changes" comment="dev">
-      <change afterPath="$PROJECT_DIR$/src/components/OrderDetails.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/OrderSummary.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/orders/fetch-orders/[id]/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/orders/fetch-orders/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/orders/place-order/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/cart.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/cart.actions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/checkout/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/checkout/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/manage-profile/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ShoppingCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShoppingCart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OrderSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OrderSummary.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +21,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -49,28 +47,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Python",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "terminal",
-    "ts.external.directory.path": "D:\\Web\\NextJS\\clozit-ecommerce\\node_modules\\typescript\\lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Python&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Web\\NextJS\\clozit-ecommerce\\node_modules\\typescript\\lib&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mongo"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mongo&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Web\NextJS\clozit-ecommerce\src\app" />
@@ -133,7 +131,8 @@
       <workItem from="1742293247196" duration="3792000" />
       <workItem from="1742363992682" duration="3418000" />
       <workItem from="1742397392366" duration="3423000" />
-      <workItem from="1742475734443" duration="4383000" />
+      <workItem from="1742475734443" duration="4725000" />
+      <workItem from="1742539872727" duration="1034000" />
     </task>
     <task id="LOCAL-00001" summary="dev">
       <option name="closed" value="true" />
@@ -303,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742475753309</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="dev">
+      <option name="closed" value="true" />
+      <created>1742489261501</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1742489261501</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

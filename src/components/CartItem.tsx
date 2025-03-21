@@ -50,7 +50,7 @@ const CartItem = (props: CartItemProps) => {
             }
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: ["cart"]});
+            queryClient.invalidateQueries({queryKey: ["cart"]});
             toast.success("Product added to cart");
         }
     });
@@ -81,7 +81,7 @@ const CartItem = (props: CartItemProps) => {
             }
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: ["cart"]});
+            queryClient.invalidateQueries({queryKey: ["cart"]});
             toast.success("Product removed from cart");
         }
     });
@@ -95,6 +95,10 @@ const CartItem = (props: CartItemProps) => {
                         <h3 className="text-lg font-semibold leading-snug sm:pr-8">
                             {props.name}
                         </h3>
+                        <div className={"flex gap-3 items-center"}>
+                            <span className={"border rounded-md cursor-default px-2 py-1"}>{props.color}</span>
+                            <span className={"border rounded-md cursor-default px-2 py-1"}>{props.size}</span>
+                        </div>
                     </div>
                     <div className="text-right">
                         <p className="text-lg font-semibold">${props.price}</p>
