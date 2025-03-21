@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { CartDataClient } from "@/utils/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import toast from "react-hot-toast";
 
 const OrderSummary = () => {
     const session = useSession();
@@ -140,7 +141,17 @@ const OrderSummary = () => {
                         <Button
                             className={"w-full"}
                             type="submit"
-                            onClick={() => placeOrderMutation.mutate()}
+                            onClick={() =>{
+                                if (!paymentMode) {
+                                    toast.error("Please select a method for Payment")
+                                }
+                                else if (address != "") {
+                                    toast.error("Please provide shipping address")
+                                }
+                                else {
+                                    placeOrderMutation.mutate()
+                                }
+                            }}
                         >
                             Place Order
                         </Button>
