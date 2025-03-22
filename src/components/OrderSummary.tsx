@@ -1,10 +1,10 @@
 "use client"
-import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
-import { CartDataClient } from "@/utils/types";
-import { Skeleton } from "@/components/ui/skeleton";
+import React, {useEffect, useState} from 'react';
+import {Button} from "@/components/ui/button";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useSession} from "next-auth/react";
+import {CartDataClient} from "@/utils/types";
+import {Skeleton} from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 
 const OrderSummary = () => {
@@ -12,6 +12,8 @@ const OrderSummary = () => {
     const [paymentMode, setPaymentMode] = useState<string | null>(null);
     const [address, setAddress] = useState<string>("");
     const [subtotal, setSubtotal] = useState(0);
+    const [loadingToast, setLoadingToast] = useState<string | undefined>()
+    const queryClient = useQueryClient()
 
     const query = useQuery({
         queryFn: async () => {
@@ -29,10 +31,15 @@ const OrderSummary = () => {
 
     const placeOrderMutation = useMutation({
         mutationFn: async () => {
-            // You can add the order placement logic here including paymentMode and address
+            console.log(paymentMode)
+            console.log(address)
+            return "hello"
         },
         onSuccess: async () => {
             // Success handling logic
+            queryClient.invalidateQueries()
+            toast.dismiss(loadingToast)
+            toast.success("Order has been placed!")
         }
     });
 
@@ -43,6 +50,48 @@ const OrderSummary = () => {
             setSubtotal(newSubtotal);
         }
     }, [query.data]);
+
+    function isValidAddress(address: string): boolean {
+        // Return false if address is empty or not a string
+        if (!address || typeof address !== 'string') {
+            return false;
+        }
+
+        // Trim whitespace and check minimum length
+        const trimmedAddress = address.trim();
+        if (trimmedAddress.length < 10) { // Arbitrary minimum length for a basic address
+            return false;
+        }
+
+        // Basic regex pattern to check for:
+        // - At least one number (for street number)
+        // - Some letters (for street name)
+        // - Common separators (spaces, commas, periods)
+        const addressPattern = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9\s,.-]+$/;
+
+        // Check if it matches the pattern and isn't just random characters
+        if (!addressPattern.test(trimmedAddress)) {
+            return false;
+        }
+
+        // Check for excessive repetition or randomness
+        const charCount: { [key: string]: number } = {};
+        for (const char of trimmedAddress.toLowerCase()) {
+            charCount[char] = (charCount[char] || 0) + 1;
+            // If any single character appears too many times (e.g., more than 50% of string)
+            if (charCount[char] > trimmedAddress.length * 0.5) {
+                return false;
+            }
+        }
+
+        // Additional check to ensure it's not just numbers or repetitive nonsense
+        const words = trimmedAddress.split(/\s+/);
+        if (words.length < 2) { // Should have at least two parts (number + street)
+            return false;
+        }
+
+        return true;
+    }
 
     return (
         <div className={"flex flex-col items-center md:flex-row w-[90vw] mx-auto mt-10 gap-6"}>
@@ -95,7 +144,8 @@ const OrderSummary = () => {
                         <ul className="grid">
                             {query.data.cart.map((item: { product: CartDataClient, qty: number }, index: number) => (
                                 <li key={index} className="flex flex-col py-1 gap-3 sm:flex-row sm:justify-between">
-                                    <div className="flex justify-between aspect-auto w-full items-center space-x-2 sm:space-x-4 border-b border-b-neutral-400 px-4">
+                                    <div
+                                        className="flex justify-between aspect-auto w-full items-center space-x-2 sm:space-x-4 border-b border-b-neutral-400 px-4">
                                         <div className="flex flex-col justify-between w-full pb-4">
                                             <div className="flex justify-between w-full pb-2 space-x-2">
                                                 <div className="space-y-1 flex flex-col justify-center">
@@ -103,8 +153,10 @@ const OrderSummary = () => {
                                                         {item.product.name}
                                                     </h3>
                                                     <div className={"flex gap-3 items-center"}>
-                                                        <span className={"border rounded-md cursor-default px-2 py-1"}>{item.product.color}</span>
-                                                        <span className={"border rounded-md cursor-default px-2 py-1"}>{item.product.size}</span>
+                                                        <span
+                                                            className={"border rounded-md cursor-default px-2 py-1"}>{item.product.color}</span>
+                                                        <span
+                                                            className={"border rounded-md cursor-default px-2 py-1"}>{item.product.size}</span>
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
@@ -128,7 +180,9 @@ const OrderSummary = () => {
                                 <dd className="text-base font-medium text-gray-900 dark:text-white">${subtotal}</dd>
                             </dl>
                             <dl className="flex items-center justify-between gap-4 py-3">
-                                <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Delivery Charges</dt>
+                                <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Delivery
+                                    Charges
+                                </dt>
                                 <dd className="text-base font-medium text-gray-900 dark:text-white">$0.75</dd>
                             </dl>
                             <dl className="flex items-center justify-between gap-4 py-3">
@@ -141,15 +195,17 @@ const OrderSummary = () => {
                         <Button
                             className={"w-full"}
                             type="submit"
-                            onClick={() =>{
-                                if (!paymentMode) {
-                                    toast.error("Please select a method for Payment")
-                                }
-                                else if (address != "") {
-                                    toast.error("Please provide shipping address")
-                                }
-                                else {
-                                    placeOrderMutation.mutate()
+                            onClick={() => {
+                                if (!paymentMode && !isValidAddress(address)) {
+                                    toast.error("Please select a payment method and enter a valid shipping address.");
+                                } else if (!paymentMode) {
+                                    toast.error("Please select a payment method to proceed.");
+                                } else if (!isValidAddress(address)) {
+                                    toast.error("Please enter a valid shipping address.");
+                                } else {
+                                    const t = toast.loading("Processing your order...");
+                                    setLoadingToast(t)
+                                    placeOrderMutation.mutate();
                                 }
                             }}
                         >
