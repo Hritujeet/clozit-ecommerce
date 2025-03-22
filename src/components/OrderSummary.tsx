@@ -35,7 +35,8 @@ const OrderSummary = () => {
                 items: query.data.cart,
                 paymentMode: paymentMode,
                 address: address,
-                total: subtotal
+                total: subtotal,
+                email: session.data?.user?.email
             }
             const response = await fetch("/api/orders/place-order",  {
                 method: "POST",
@@ -45,7 +46,6 @@ const OrderSummary = () => {
                 body: JSON.stringify(orderData)
             });
             const data = await response.json();
-            console.log(data);
         },
         onSuccess: async () => {
             // Success handling logic

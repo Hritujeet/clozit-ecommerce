@@ -1,5 +1,6 @@
+import { Order } from "@/models/Order";
+import { User } from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
-import { CartDataServer } from "@/utils/types";
 
 type OrderItem = {
     product: string;
@@ -20,9 +21,10 @@ type PayLoadItem = {
 };
 
 export async function POST(request: NextRequest) {
-    const { items, paymentMode, address, total } = await request.json();
+    const { items, paymentMode, address, total, email } = await request.json();
     let parsedItems: OrderItem[] = [];
-
+    
+    const user = await User.findOne({email}).select("_id")    
     items.forEach((element: PayLoadItem) => {
         const orderItem: OrderItem = {
             product: element.product.id,
@@ -32,7 +34,17 @@ export async function POST(request: NextRequest) {
         };
         parsedItems.push(orderItem)
     });
-    console.log(parsedItems)
+
+    const order = new Order({
+        user: user.id,
+        orderItems: parsedItems,
+        isPayed: (paymentMode != "Cash On Delivery"),
+        paymentMode: paymentMode,
+        total: total,
+        shippingAddress: address
+    })
+
+    await order.save();
 
     return NextResponse.json({ message: "Okay" });
 }
