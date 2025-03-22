@@ -36,7 +36,7 @@ const Navbar = () => {
     const handleSignOut = async () => {
         toast.success("Signed Out Successfully")
         setTimeout(async () => {
-            await signOut({ callbackUrl: "/auth/sign-in" })
+            await signOut()
         }, 1000)
     }
 
