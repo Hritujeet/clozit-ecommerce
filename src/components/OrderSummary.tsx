@@ -31,9 +31,21 @@ const OrderSummary = () => {
 
     const placeOrderMutation = useMutation({
         mutationFn: async () => {
-            console.log(paymentMode)
-            console.log(address)
-            return "hello"
+            let orderData = {
+                items: query.data.cart,
+                paymentMode: paymentMode,
+                address: address,
+                total: subtotal
+            }
+            const response = await fetch("/api/orders/place-order",  {
+                method: "POST",
+                headers: {
+                    "Content-type":"application/json",
+                },
+                body: JSON.stringify(orderData)
+            });
+            const data = await response.json();
+            console.log(data);
         },
         onSuccess: async () => {
             // Success handling logic
@@ -47,7 +59,7 @@ const OrderSummary = () => {
         if (query.data?.cart) {
             const newSubtotal = query.data.cart.reduce((sum: number, item: { product: CartDataClient, qty: number }) =>
                 sum + (item.product.price * item.qty), 0);
-            setSubtotal(newSubtotal);
+            setSubtotal(parseFloat(newSubtotal.toFixed(2)));
         }
     }, [query.data]);
 
