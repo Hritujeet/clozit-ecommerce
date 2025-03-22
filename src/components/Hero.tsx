@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import heroImg from "@/assets/hero.jpg"
 import Link from "next/link";

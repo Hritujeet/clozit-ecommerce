@@ -6,7 +6,7 @@ import { Product } from "@/utils/types";
 import ProductSkeleton from "./ProductSkeleton";
 
 const FeaturedProducts = () => {
-    const {data, isFetching} = useQuery({
+    const {data, isFetching} = useQuery({ 
         queryFn: async () => {
             const response = await fetch("/api/products/featured");
             if (!response.ok) throw new Error("Failed to fetch products");
@@ -16,7 +16,7 @@ const FeaturedProducts = () => {
     });
     
     return (
-        <section className="py-12 bg-white sm:py-16 lg:py-20">
+        <section className="py-12 bg-white sm:py-16 lg:py-20" suppressHydrationWarning>
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                 <div className="max-w-md mx-auto text-center">
                     <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">

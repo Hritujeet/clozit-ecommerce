@@ -1,13 +1,15 @@
 import Hero from "@/components/Hero";
-import FeaturedProducts from "@/components/FeaturedProducts";
 import Features from "@/components/Features";
 import CategoryGrid from "@/components/CategoryGrid";
+import FeaturedProductsWrapper from "@/components/FeaturedProductsWrapper";
 
 export default function Home() {
+    console.log("Page Rendered on:", typeof window === "undefined" ? "Server" : "Client");
+
     return (
         <main>
             <Hero></Hero>
-            <FeaturedProducts></FeaturedProducts>
+            <FeaturedProductsWrapper />
             <CategoryGrid />
             <Features></Features>
         </main>
