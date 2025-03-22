@@ -37,7 +37,7 @@ const ShoppingCart = () => {
             await clearCartServer(session.data?.user?.email as string)
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: ["cart"]})
+            queryClient.invalidateQueries({queryKey: ["cart"]})
         }
     })
 

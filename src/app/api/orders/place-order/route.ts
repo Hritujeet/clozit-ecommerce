@@ -1,5 +1,6 @@
 import { Order } from "@/models/Order";
 import { User } from "@/models/User";
+import { connectDb } from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
 type OrderItem = {
@@ -34,6 +35,7 @@ export async function POST(request: NextRequest) {
         };
         parsedItems.push(orderItem)
     });
+    await connectDb();
 
     const order = new Order({
         user: user.id,
@@ -43,8 +45,7 @@ export async function POST(request: NextRequest) {
         total: total,
         shippingAddress: address
     })
-
     await order.save();
 
-    return NextResponse.json({ message: "Okay" });
+    return NextResponse.json({ message: "Okay", orderId: order.id});
 }

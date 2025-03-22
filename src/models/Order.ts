@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema({
     isPayed: { type: Boolean, default: false },
     status: {
         type: String,
-        enum: ["Order Placed", "Shipped", "Out of Delivery", "Delivered"],
+        enum: ["Order Placed", "Shipped", "Out for Delivery", "Delivered"],
         default: "Order Placed",
     },
     paymentMode: {
@@ -24,6 +24,10 @@ const orderSchema = new mongoose.Schema({
     shippingAddress: { type: String }, // Add shipping address
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }, // Fixed typo
+    deliveryDate: { 
+        type: Date, 
+        default: () => new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) 
+      }      
 });
 
 export const Order =
