@@ -83,7 +83,7 @@ const ShoppingCart = () => {
                     </ul>
                     <div className="space-y-2">
                         <p>Total amount:
-                            <span className="font-semibold mx-2">${subtotal}</span>
+                            <span className="font-semibold mx-2">Rs. {new Intl.NumberFormat('en-US').format(subtotal)}</span>
                         </p>
                         <p className="text-sm dark:text-gray-600">Not including taxes and shipping costs</p>
                     </div>

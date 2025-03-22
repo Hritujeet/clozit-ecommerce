@@ -149,7 +149,7 @@ const ProductOverview = ({slug}: { slug: string }) => {
                         </div>
                         <div className="flex flex-col justify-center gap-4">
                             <p className="text-2xl font-semibold mb-4">
-                                ${query.data.product.price}
+                                Rs. {new Intl.NumberFormat('en-US').format(query.data.product.price)}
                             </p>
                             <Button
                                 disabled={mutation.isPending}

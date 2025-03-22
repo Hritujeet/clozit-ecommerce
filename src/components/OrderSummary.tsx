@@ -172,7 +172,7 @@ const OrderSummary = () => {
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
-                                                    <p className="text-lg font-semibold">${item.product.price}</p>
+                                                    <p className="text-lg font-semibold">Rs. {new Intl.NumberFormat('en-US').format(item.product.price)}</p>
                                                     <p className="text-sm dark:text-gray-400">
                                                         Qty: {item.qty}
                                                     </p>
@@ -189,17 +189,17 @@ const OrderSummary = () => {
                         <div className="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
                             <dl className="flex items-center justify-between gap-4 py-3">
                                 <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
-                                <dd className="text-base font-medium text-gray-900 dark:text-white">${subtotal}</dd>
+                                <dd className="text-base font-medium text-gray-900 dark:text-white">Rs. {new Intl.NumberFormat('en-US').format(subtotal)}</dd>
                             </dl>
                             <dl className="flex items-center justify-between gap-4 py-3">
                                 <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Delivery
                                     Charges
                                 </dt>
-                                <dd className="text-base font-medium text-gray-900 dark:text-white">$0.75</dd>
+                                <dd className="text-base font-medium text-gray-900 dark:text-white">Rs. 70</dd>
                             </dl>
                             <dl className="flex items-center justify-between gap-4 py-3">
                                 <dt className="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                                <dd className="text-base font-bold text-gray-900 dark:text-white">${subtotal + 0.75}</dd>
+                                <dd className="text-base font-bold text-gray-900 dark:text-white">Rs. {new Intl.NumberFormat('en-US').format(subtotal + 70)}</dd>
                             </dl>
                         </div>
                     </div>

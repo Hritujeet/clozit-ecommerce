@@ -58,8 +58,8 @@ const ProductCard = (props: ProductCardType) => {
                 </div>
 
                 <div className="mt-4 flex items-center justify-between gap-4">
-                    <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                        ${price}
+                    <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white space-x-1">
+                        <span>Rs.</span><span>{new Intl.NumberFormat('en-US').format(price)}</span>
                     </p>
                 </div>
             </div>

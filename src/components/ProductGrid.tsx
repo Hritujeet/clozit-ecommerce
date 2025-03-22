@@ -32,7 +32,7 @@ const ProductGrid = ({title, fetchURL}: { title: string, fetchURL: string }) => 
                                 name={item.productName}
                                 img={item.image}
                                 discount={45}
-                                price={499}
+                                price={item.price}
                                 slug={item.slug}
                                 avlSizes={item.sizes}
                                 colors={item.colors}

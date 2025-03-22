@@ -33,7 +33,7 @@ const FeaturedProductCard = (props: ProductCardType) => {
 
                     <div className="text-right">
                         <p className="text-lg font-bold text-gray-900">
-                            ${price}
+                            Rs. {new Intl.NumberFormat('en-US').format(price)}
                         </p>
                     </div>
 
