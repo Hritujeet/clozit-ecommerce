@@ -1,11 +1,11 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import { CheckCircle, HouseIcon, StoreIcon, TruckIcon } from "lucide-react";
+import {useQuery} from "@tanstack/react-query";
+import {CheckCircle, HouseIcon, StoreIcon, TruckIcon} from "lucide-react";
 import React from "react";
-import { Skeleton } from "./ui/skeleton";
+import {Skeleton} from "./ui/skeleton";
 import Link from "next/link";
 
-const Order = ({ orderId }: { orderId: string }) => {
+const Order = ({orderId}: { orderId: string }) => {
     const query = useQuery({
         queryFn: async () => {
             const response = await fetch(`/api/orders/fetch-orders/${orderId}`);
@@ -28,8 +28,8 @@ const Order = ({ orderId }: { orderId: string }) => {
         <section className="bg-white py-8 antialiased dark:bg-gray-900">
             {query.isFetching && (
                 <div className="w-[85vw] mx-auto flex gap-2 justify-between">
-                    <Skeleton className="h-[60vh] w-[40vw]" />
-                    <Skeleton className="h-[60vh] w-[40vw]" />
+                    <Skeleton className="h-[60vh] w-[40vw]"/>
+                    <Skeleton className="h-[60vh] w-[40vw]"/>
                 </div>
             )}
             {!query.isFetching && (
@@ -119,7 +119,8 @@ const Order = ({ orderId }: { orderId: string }) => {
                             </div>
                         </div>
                         <div className="mt-6 grow sm:mt-8 lg:mt-0">
-                            <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                            <div
+                                className="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                                     Order Status
                                 </h3>
@@ -133,8 +134,16 @@ const Order = ({ orderId }: { orderId: string }) => {
                                                     : ""
                                             }`}
                                         >
-                                            <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
-                                                <HouseIcon />
+                                            <span
+                                                className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
+                                                {status === "Order Placed" &&
+                                                    <HouseIcon/>}
+                                                {status === "Shipped" &&
+                                                    <StoreIcon />}
+                                                {status ===
+                                                    "Out for Delivery" &&
+                                                    <TruckIcon />}
+                                                {status === "Delivered" && <CheckCircle />}
                                             </span>
                                             <h4 className="mb-0.5 text-base font-semibold">
                                                 {status}
@@ -159,14 +168,6 @@ const Order = ({ orderId }: { orderId: string }) => {
                                         </li>
                                     ))}
                                 </ol>
-                                <div className="gap-4 sm:flex sm:items-center">
-                                    <button
-                                        type="button"
-                                        className="w-full rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                    >
-                                        Cancel the order
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>

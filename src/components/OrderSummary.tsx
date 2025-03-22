@@ -156,7 +156,7 @@ const OrderSummary = () => {
                         onClick={() => setPaymentMode("Net Banking")}
                         className={`card flex flex-col justify-center items-center px-8 py-4 border rounded-md duration-150 cursor-default gap-2 ${
                             paymentMode === "Net Banking"
-                                ? "bg(as-neutral-100"
+                                ? "bg-neutral-100"
                                 : "text-neutral-800 hover:bg-neutral-50"
                         }`}
                     >
@@ -322,13 +322,13 @@ const OrderSummary = () => {
                                 placeOrderMutation.mutate(undefined, {
                                     onSuccess: (data) => {
                                         setorderId(data.orderId);
-                                        toast.dismiss(t);
+                                        toast.dismiss(loadingToast);
                                         toast.success("Order has been placed!");
                                         setTimeout(() => {
                                             router.replace(
                                                 `/profile/orders/order/${data.orderId}`
                                             );
-                                        }, 1000);
+                                        }, 500);
                                     },
                                     onError: () => {
                                         toast.dismiss(t);
