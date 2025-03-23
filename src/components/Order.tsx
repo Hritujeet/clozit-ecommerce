@@ -4,6 +4,7 @@ import { CheckCircle, HouseIcon, StoreIcon, TruckIcon } from "lucide-react";
 import React from "react";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
+import Image from "next/image";
 
 const Order = ({ orderId }: { orderId: string }) => {
     const query = useQuery({
@@ -51,7 +52,9 @@ const Order = ({ orderId }: { orderId: string }) => {
                                                 href={`/products/products/${element.product.slug}`}
                                                 className="w-auto h-32 shrink-0"
                                             >
-                                                <img
+                                                <Image
+                                                    width={100}
+                                                    height={100}
                                                     className="h-full w-full dark:hidden"
                                                     src={element.product.image}
                                                     alt="Product image"
