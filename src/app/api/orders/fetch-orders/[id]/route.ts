@@ -1,10 +1,9 @@
 import { Order } from "@/models/Order";
 import { connectDb } from "@/utils/db";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 export async function GET(
-    request: NextRequest,
     { params }: { params: { id: string } }
 ) {
     const { id } = params;
