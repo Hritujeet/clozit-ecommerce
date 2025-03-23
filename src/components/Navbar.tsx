@@ -1,5 +1,4 @@
 "use client"
-
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -36,7 +35,7 @@ const Navbar = () => {
     const handleSignOut = async () => {
         toast.success("Signed Out Successfully")
         setTimeout(async () => {
-            await signOut()
+            await signOut({redirectTo: "/auth/sign-in"})
         }, 1000)
     }
 
