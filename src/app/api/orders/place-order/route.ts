@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
-        const user = await User.findOne({ email }).select("_id");
+        const user = await User.findOne({ email }).select("_id").lean();
 
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
             quantity: element.qty,
         }));
 
-        const order = new Order({
+        const order = await Order.create({
             user: user._id, // Changed from `user.id` to `user._id` for consistency
             orderItems: parsedItems,
             isPayed: paymentMode !== "Cash On Delivery",
@@ -55,8 +55,6 @@ export async function POST(request: NextRequest) {
             shippingAddress: address,
             phoneNumber,
         });
-
-        await order.save(); // Save to database
 
         return NextResponse.json({ message: "Okay", orderId: order.id });
     } catch (error) {
