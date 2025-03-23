@@ -1,14 +1,16 @@
-import mongoose from "mongoose"
-import {DB_URI} from "@/utils/types";
+import mongoose from "mongoose";
+
+const DB_URI = process.env.DB_URI; // Ensure you load env variables correctly
 
 export const connectDb = async () => {
     try {
-        if (mongoose.connections && mongoose.connections[0].readyState) {
-            console.log("Already Connected")
-            return
+        if (mongoose.connection.readyState) {
+            console.log("Already Connected");
+            return;
         }
         await mongoose.connect(DB_URI);
+        console.log("Database Connected Successfully");
     } catch (error) {
-        console.log(error)
+        console.error("MongoDB Connection Error:", error);
     }
-}
+};
