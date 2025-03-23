@@ -17,12 +17,13 @@ type PayLoadItem = {
         slug: string;
         price: number;
         id: string;
+        phoneNumber: string
     },
     qty: number;
 };
 
 export async function POST(request: NextRequest) {
-    const { items, paymentMode, address, total, email } = await request.json();
+    const { items, paymentMode, address, total, email, phoneNumber } = await request.json();
     let parsedItems: OrderItem[] = [];
     
     const user = await User.findOne({email}).select("_id")    
@@ -43,7 +44,8 @@ export async function POST(request: NextRequest) {
         isPayed: (paymentMode != "Cash On Delivery"),
         paymentMode: paymentMode,
         total: total,
-        shippingAddress: address
+        shippingAddress: address,
+        phoneNumber: phoneNumber
     })
     await order.save();
 

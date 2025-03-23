@@ -21,6 +21,7 @@ const orderSchema = new mongoose.Schema({
         enum: ["Cash On Delivery", "Card", "Net Banking"],
     },
     total: { type: Number, default: 0 },
+    phoneNumber: {type: String, required: true},
     shippingAddress: { type: String }, // Add shipping address
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }, // Fixed typo

@@ -1,5 +1,8 @@
 "use server";
 import { signIn, signOut } from "@/auth";
+import { ContactFormType } from "@/components/Contact";
+import { Contact } from "@/models/Contact";
+import { connectDb } from "@/utils/db";
 import { Credentials } from "@/utils/types";
 
 export async function credentialSignInHandler(data: Credentials) {
@@ -29,4 +32,14 @@ export async function handleGoogleSignIn() {
     } catch (error: any) {
         return error;
     }
+}
+
+export async function handleContact(data: ContactFormType) {
+    const {email, subject, description} = data;
+    await connectDb()
+
+    const contact = await Contact.create({
+        email, subject, description
+    })
+    console.log(contact);
 }

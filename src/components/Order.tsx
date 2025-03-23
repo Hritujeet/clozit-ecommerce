@@ -1,11 +1,11 @@
 "use client";
-import {useQuery} from "@tanstack/react-query";
-import {CheckCircle, HouseIcon, StoreIcon, TruckIcon} from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { CheckCircle, HouseIcon, StoreIcon, TruckIcon } from "lucide-react";
 import React from "react";
-import {Skeleton} from "./ui/skeleton";
+import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
 
-const Order = ({orderId}: { orderId: string }) => {
+const Order = ({ orderId }: { orderId: string }) => {
     const query = useQuery({
         queryFn: async () => {
             const response = await fetch(`/api/orders/fetch-orders/${orderId}`);
@@ -28,8 +28,8 @@ const Order = ({orderId}: { orderId: string }) => {
         <section className="bg-white py-8 antialiased dark:bg-gray-900">
             {query.isFetching && (
                 <div className="w-[85vw] mx-auto flex gap-2 justify-between">
-                    <Skeleton className="h-[60vh] w-[40vw]"/>
-                    <Skeleton className="h-[60vh] w-[40vw]"/>
+                    <Skeleton className="h-[60vh] w-[40vw]" />
+                    <Skeleton className="h-[60vh] w-[40vw]" />
                 </div>
             )}
             {!query.isFetching && (
@@ -119,8 +119,7 @@ const Order = ({orderId}: { orderId: string }) => {
                             </div>
                         </div>
                         <div className="mt-6 grow sm:mt-8 lg:mt-0">
-                            <div
-                                className="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                            <div className="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                                     Order Status
                                 </h3>
@@ -134,21 +133,25 @@ const Order = ({orderId}: { orderId: string }) => {
                                                     : ""
                                             }`}
                                         >
-                                            <span
-                                                className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
-                                                {status === "Order Placed" &&
-                                                    <HouseIcon/>}
-                                                {status === "Shipped" &&
-                                                    <StoreIcon />}
+                                            <span className="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white dark:bg-gray-700 dark:ring-gray-800">
+                                                {status === "Order Placed" && (
+                                                    <HouseIcon />
+                                                )}
+                                                {status === "Shipped" && (
+                                                    <StoreIcon />
+                                                )}
                                                 {status ===
-                                                    "Out for Delivery" &&
-                                                    <TruckIcon />}
-                                                {status === "Delivered" && <CheckCircle />}
+                                                    "Out for Delivery" && (
+                                                    <TruckIcon />
+                                                )}
+                                                {status === "Delivered" && (
+                                                    <CheckCircle />
+                                                )}
                                             </span>
                                             <h4 className="mb-0.5 text-base font-semibold">
                                                 {status}
                                             </h4>
-                                            <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                            <div className="text-sm font-normal text-gray-500 dark:text-gray-400">
                                                 {status === "Order Placed" &&
                                                     "Your order has been placed successfully."}
                                                 {status === "Shipped" &&
@@ -156,15 +159,40 @@ const Order = ({orderId}: { orderId: string }) => {
                                                 {status ===
                                                     "Out for Delivery" &&
                                                     "The item is out for delivery."}
-                                                {status === "Delivered" &&
-                                                    `Delivery Estimated By ${new Date(
-                                                        query.data?.order.deliveryDate
-                                                    ).toLocaleString("en-US", {
-                                                        year: "numeric",
-                                                        month: "long",
-                                                        day: "numeric",
-                                                    })}`}
-                                            </p>
+                                                {status === "Delivered" && (
+                                                    <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                                        {query.data.order
+                                                            .status ===
+                                                        "Delivered" ? (
+                                                            <span className="font-semibold text-green-600">
+                                                                Your order was
+                                                                delivered on{" "}
+                                                                {new Date(
+                                                                    query.data?.order.deliveryDate
+                                                                ).toLocaleString(
+                                                                    "en-US",
+                                                                    {
+                                                                        year: "numeric",
+                                                                        month: "long",
+                                                                        day: "numeric",
+                                                                    }
+                                                                )}
+                                                            </span>
+                                                        ) : (
+                                                            `Delivery Estimated by ${new Date(
+                                                                query.data?.order.deliveryDate
+                                                            ).toLocaleString(
+                                                                "en-US",
+                                                                {
+                                                                    year: "numeric",
+                                                                    month: "long",
+                                                                    day: "numeric",
+                                                                }
+                                                            )}`
+                                                        )}
+                                                    </p>
+                                                )}
+                                            </div>
                                         </li>
                                     ))}
                                 </ol>

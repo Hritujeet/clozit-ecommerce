@@ -13,6 +13,7 @@ const OrderSummary = () => {
     const session = useSession();
     const [paymentMode, setPaymentMode] = useState<string | null>(null);
     const [address, setAddress] = useState<string>("");
+    const [phoneNumber, setphoneNumber] = useState<string>("");
     const [subtotal, setSubtotal] = useState(0);
     const [loadingToast, setLoadingToast] = useState<string | undefined>();
     const [orderId, setorderId] = useState("");
@@ -43,6 +44,7 @@ const OrderSummary = () => {
                 address: address,
                 total: subtotal,
                 email: session.data?.user?.email,
+                phoneNumber: phoneNumber
             };
             const response = await fetch("/api/orders/place-order", {
                 method: "POST",
@@ -163,6 +165,19 @@ const OrderSummary = () => {
                         <span className="text-lg flex gap-2 justify-center items-center">
                             Net Banking
                         </span>
+                    </div>
+                    <div className="input py-2">
+                        <input
+                            value={phoneNumber}
+                            onChange={(e) => setphoneNumber(e.target.value as string)}
+                            name="phone"
+                            id="phone"
+                            type="phone"
+                            className={
+                                "w-full rounded-md border border-neutral-300 px-4 py-2"
+                            }
+                            placeholder={"Phone Number"}
+                        />
                     </div>
                     <div className="input py-4">
                         <textarea
@@ -307,11 +322,24 @@ const OrderSummary = () => {
                             className={"w-full"}
                             type="submit"
                             onClick={async () => {
-                                if (!paymentMode || !isValidAddress(address)) {
+                                if (!paymentMode) {
                                     toast.error(
-                                        "Please select a valid payment method and address."
+                                        "Please select a valid payment method and fill out all the details."
                                     );
                                     return;
+                                }
+                                if (!isValidAddress(address)) {
+                                    toast.error(
+                                        "Please provide a valid shipping address"
+                                    );
+                                    return
+                                }
+
+                                if (!phoneNumber && phoneNumber.length<10) {
+                                    toast.error(
+                                        "Please enter a valid phone number"
+                                    );
+                                    return
                                 }
 
                                 const t = toast.loading(
@@ -325,7 +353,7 @@ const OrderSummary = () => {
                                         toast.dismiss(loadingToast);
                                         toast.success("Order has been placed!");
                                         setTimeout(() => {
-                                            router.replace(
+                                            router.push(
                                                 `/profile/orders/order/${data.orderId}`
                                             );
                                         }, 500);
