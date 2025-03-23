@@ -17,37 +17,50 @@ type PayLoadItem = {
         slug: string;
         price: number;
         id: string;
-        phoneNumber: string
-    },
+        phoneNumber: string;
+    };
     qty: number;
 };
 
 export async function POST(request: NextRequest) {
-    const { items, paymentMode, address, total, email, phoneNumber } = await request.json();
-    let parsedItems: OrderItem[] = [];
-    
-    const user = await User.findOne({email}).select("_id")    
-    items.forEach((element: PayLoadItem) => {
-        const orderItem: OrderItem = {
+    try {
+        await connectDb(); // Connect to DB first to avoid delays later
+
+        const { items, paymentMode, address, total, email, phoneNumber } = await request.json();
+        
+        // Validate request data
+        if (!items || !email || !total) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        }
+
+        const user = await User.findOne({ email }).select("_id");
+
+        if (!user) {
+            return NextResponse.json({ error: "User not found" }, { status: 404 });
+        }
+
+        const parsedItems: OrderItem[] = items.map((element: PayLoadItem) => ({
             product: element.product.id,
             color: element.product.color,
             size: element.product.size,
             quantity: element.qty,
-        };
-        parsedItems.push(orderItem)
-    });
-    await connectDb();
+        }));
 
-    const order = new Order({
-        user: user.id,
-        orderItems: parsedItems,
-        isPayed: (paymentMode != "Cash On Delivery"),
-        paymentMode: paymentMode,
-        total: total,
-        shippingAddress: address,
-        phoneNumber: phoneNumber
-    })
-    await order.save();
+        const order = new Order({
+            user: user._id, // Changed from `user.id` to `user._id` for consistency
+            orderItems: parsedItems,
+            isPayed: paymentMode !== "Cash On Delivery",
+            paymentMode,
+            total,
+            shippingAddress: address,
+            phoneNumber,
+        });
 
-    return NextResponse.json({ message: "Okay", orderId: order.id});
+        await order.save(); // Save to database
+
+        return NextResponse.json({ message: "Okay", orderId: order.id });
+    } catch (error) {
+        console.error("Order placement error:", error);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
 }
