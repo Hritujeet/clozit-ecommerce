@@ -8,6 +8,7 @@ export const connectDb = async () => {
             console.log("Already Connected");
             return;
         }
+        mongoose.set("bufferCommands", false);
         await mongoose.connect(DB_URI);
         console.log("Database Connected Successfully");
     } catch (error) {
