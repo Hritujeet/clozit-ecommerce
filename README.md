@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clozit: Basic E-commerce Website
+
+Clozit is my first venture into building an industry-standard e-commerce store. This prototype features essential functionalities like **product Browse with search and filtering**, a **dynamic shopping cart**, **simulated payment gateway**, **order management**, and a **secure user account system**. It's a demonstration of full-stack development skills in a commercial context.
+
+---
+
+## Features
+
+* **Product Catalog & Search:** Browse and find products easily.
+* **Shopping Cart:** Manage items before purchase.
+* **Payment Simulation:** Experience a simulated checkout.
+* **Order & User Management:** Track orders and manage your profile.
+
+---
+
+## Technologies Used
+
+*(Fill this in with your actual technologies, e.g., React, Node.js, MongoDB)*
+
+**Frontend:**
+* HTML, CSS, JavaScript
+* [Your Frontend Framework/Library, e.g., React.js]
+
+**Backend:**
+* [Your Backend Language/Framework, e.g., Node.js with Express.js]
+* [Your Database, e.g., MongoDB]
+
+---
 
 ## Getting Started
 
-First, run the development server:
+To run Clozit locally:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1.  **Clone the repo:** `git clone https://github.com/your-username/clozit.git`
+2.  **Install dependencies:**
+    * `cd clozit/frontend && npm install`
+    * `cd ../backend && npm install`
+3.  **Set up `.env`:** Create a `.env` file in your `backend` directory with necessary variables (e.g., `PORT`, `MONGO_URI`, `JWT_SECRET`).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Start backend:** `cd backend && npm start`
+2.  **Start frontend:** `cd frontend && npm start`
 
-## Learn More
+The application will typically be accessible at `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Status
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This is a prototype for learning and demonstration. It covers core functionalities but requires further development for production readiness.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions are welcome!
+
+1.  Fork the repository.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
