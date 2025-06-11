@@ -13,10 +13,7 @@ export async function connectDb() {
         }
 
         // Connect to the database
-        await mongoose.connect(DB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(DB_URI);
 
         console.log("Database connection established successfully.");
     } catch (error) {

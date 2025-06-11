@@ -35,11 +35,13 @@ export async function handleGoogleSignIn() {
 }
 
 export async function handleContact(data: ContactFormType) {
-    const {email, subject, description} = data;
-    await connectDb()
+    const { email, subject, description } = data;
+    await connectDb();
 
     const contact = await Contact.create({
-        email, subject, description
-    })
+        email,
+        subject,
+        description,
+    });
     console.log(contact);
 }
