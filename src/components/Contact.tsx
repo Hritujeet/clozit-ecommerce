@@ -78,7 +78,7 @@ const Contact = () => {
                             })}
                             type="email"
                             id="email"
-                            className={`shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light ${
+                            className={`shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full px-4 py-2 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light ${
                                 errors.email
                                     ? "border-red-500"
                                     : "border-gray-300 dark:border-gray-600"
@@ -106,7 +106,7 @@ const Contact = () => {
                             })}
                             type="text"
                             id="subject"
-                            className={`block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light ${
+                            className={`block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-md border shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light ${
                                 errors.subject
                                     ? "border-red-500"
                                     : "border-gray-300 dark:border-gray-600"
@@ -134,7 +134,7 @@ const Contact = () => {
                             })}
                             id="message"
                             rows={6}
-                            className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                            className={`block px-4 py-2 w-full text-sm text-gray-900 bg-gray-50 rounded-md shadow-sm border focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
                                 errors.description
                                     ? "border-red-500"
                                     : "border-gray-300 dark:border-gray-600"

@@ -6,8 +6,8 @@ import { useSession } from "next-auth/react";
 import { CartDataClient } from "@/utils/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { clearCartServer } from "@/actions/cart.actions";
+import { redirect } from "next/navigation";
 
 const OrderSummary = () => {
     const session = useSession();
@@ -17,7 +17,6 @@ const OrderSummary = () => {
     const [subtotal, setSubtotal] = useState(0);
     const [loadingToast, setLoadingToast] = useState<string | undefined>();
     const [orderId, setorderId] = useState("");
-    const router = useRouter();
     const queryClient = useQueryClient();
 
     const query = useQuery({
@@ -353,7 +352,7 @@ const OrderSummary = () => {
                                         toast.dismiss(loadingToast);
                                         toast.success("Order has been placed!");
                                         setTimeout(() => {
-                                            router.push(
+                                            redirect(
                                                 `/profile/orders/order/${data.orderId}`
                                             );
                                         }, 500);

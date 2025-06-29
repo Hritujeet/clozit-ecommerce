@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 const Page = () => {
     return (
@@ -12,11 +13,11 @@ const Page = () => {
                     <p className="mb-8 leading-relaxed">
                        Clozit | Ecommerce is a basic ecommerce clothing store website as a prototype of an ecommerce store. This site is created using NextJS, Typescript, MongoDB with Mongoose and Tanstack Query. This website is not a real ecommerce clothing store and as such doesn't incoporate any real stock of products displayed and payment gateways. You can freelly place order without having to pay as this is a demo (prototype) pf a bigger idea. Feel Free to Contact me for any suggestions about this project. This is a part of my learnings.
                     </p>
-                    <div className="flex justify-center">
-                        <Link href={"/"} className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                    <div className="flex justify-center space-x-4">
+                        <Link href={"/"} className={`${buttonVariants({variant: "default"})}`}>
                             Home
                         </Link>
-                        <Link href={"/products"} className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                        <Link href={"/products"} className={`${buttonVariants({variant: "default"})}`}>
                             Products
                         </Link>
                     </div>
