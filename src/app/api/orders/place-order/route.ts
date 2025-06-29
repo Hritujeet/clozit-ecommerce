@@ -3,52 +3,37 @@ import { User } from "@/models/User";
 import { connectDb } from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
-type OrderItem = {
-    product: string;
-    color: string;
-    size: string;
-    quantity: number;
-};
-type PayLoadItem = {
-    product: {
-        name: string;
-        color: string;
-        size: string;
-        slug: string;
-        price: number;
-        id: string;
-        phoneNumber: string;
-    };
-    qty: number;
-};
+// Consider using a schema validation library for payloads
 
 export async function POST(request: NextRequest) {
     try {
-        await connectDb(); // Connect to DB first to avoid delays later
+        await connectDb();
 
         const { items, paymentMode, address, total, email, phoneNumber } = await request.json();
-        
-        // Validate request data
-        if (!items || !email || !total) {
+
+        // Early validation
+        if (!items?.length || !email || !total) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
+        // Find user by indexed email, lean for performance
         const user = await User.findOne({ email }).select("_id").lean();
-
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
 
-        const parsedItems: OrderItem[] = items.map((element: PayLoadItem) => ({
-            product: element.product.id,
-            color: element.product.color,
-            size: element.product.size,
-            quantity: element.qty,
+        // Efficient transformation
+        const orderItems = items.map(({ product, qty }: any) => ({
+            product: product.id,
+            color: product.color,
+            size: product.size,
+            quantity: qty,
         }));
 
+        // Create order in one call
         const order = await Order.create({
-            user: user._id, // Changed from `user.id` to `user._id` for consistency
-            orderItems: parsedItems,
+            user: user._id,
+            orderItems,
             isPayed: paymentMode !== "Cash On Delivery",
             paymentMode,
             total,
