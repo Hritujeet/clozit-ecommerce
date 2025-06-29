@@ -1,22 +1,22 @@
-import type { NextConfig } from "next";
+import {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-    images: {
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "*",
-            },
-        ],
-    },
-    eslint: {
-        // Warning: This allows production builds to successfully complete even if
-        // your project has ESLint errors.
-        ignoreDuringBuilds: true,
-    },
     typescript: {
         ignoreBuildErrors: true,
     },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '*',
+                port: '',
+                pathname: '/**',
+            }
+        ]
+    }
 };
 
-export default nextConfig;
+export default nextConfig
