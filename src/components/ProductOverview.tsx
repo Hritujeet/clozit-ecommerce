@@ -195,7 +195,6 @@ const ProductOverview = ({slug}: { slug: string }) => {
                                 {mutation.isPending ? <LoadingSpinner/> : <><FaShoppingCart className="mr-2"/> Add to
                                     Cart</>}
                             </Button>
-                            <Button variant={"outline"}>Buy Now</Button>
                         </div>
                         <div className="mt-6 space-y-2">
                             <div className="flex items-center">
