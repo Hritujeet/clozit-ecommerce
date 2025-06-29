@@ -18,43 +18,18 @@ Clozit is my first venture into building an industry-standard e-commerce store. 
 *(Fill this in with your actual technologies, e.g., React, Node.js, MongoDB)*
 
 **Frontend:**
-* HTML, CSS, JavaScript
-* [Your Frontend Framework/Library, e.g., React.js]
+* HTML, CSS, JavaScript, Typescript
+* TailwindCSS
+* Shadcn UI
+* NextJS - React
+* Tanstack Query
 
 **Backend:**
-* [Your Backend Language/Framework, e.g., Node.js with Express.js]
-* [Your Database, e.g., MongoDB]
+* NextJS - Api Routes
+* MongoDB with Mongoose
+* Next Auth
 
----
-
-## Getting Started
-
-To run Clozit locally:
-
-1.  **Clone the repo:** `git clone https://github.com/your-username/clozit.git`
-2.  **Install dependencies:**
-    * `cd clozit/frontend && npm install`
-    * `cd ../backend && npm install`
-3.  **Set up `.env`:** Create a `.env` file in your `backend` directory with necessary variables (e.g., `PORT`, `MONGO_URI`, `JWT_SECRET`).
-
----
-
-## Usage
-
-1.  **Start backend:** `cd backend && npm start`
-2.  **Start frontend:** `cd frontend && npm start`
-
-The application will typically be accessible at `http://localhost:3000`.
-
----
-
-## Project Status
-
-This is a prototype for learning and demonstration. It covers core functionalities but requires further development for production readiness.
-
----
-
-## Contributing
+## Youtube Demo - https://youtu.be/mAzOsUK0BJU?si=Lx7l2QnAXpx-QxTA
 
 Contributions are welcome!
 
