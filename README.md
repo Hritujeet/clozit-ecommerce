@@ -1,4 +1,5 @@
-# Clozit: Basic E-commerce Website
+# Clozit: Prototype E-commerce Website
+https://clozit-ecommerce.vercel.app/
 
 Clozit is my first venture into building an industry-standard e-commerce store. This prototype features essential functionalities like **product Browse with search and filtering**, a **dynamic shopping cart**, **simulated payment gateway**, **order management**, and a **secure user account system**. It's a demonstration of full-stack development skills in a commercial context.
 
